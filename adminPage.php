@@ -318,6 +318,69 @@
             
         }
 
+        //Display images
+        $sql = "SELECT * FROM `image`";
+        $result = mysqli_query($conn,$sql);
+        $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        //Add, delete and update bookings
+        if (isset($_POST["updateImageInfo"])){
+            
+            $imageID = filter_input(INPUT_POST, "imageID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $imageName = filter_input(INPUT_POST, "imageName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $imageClass = filter_input(INPUT_POST, "imageClass",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            
+            $sql = "UPDATE `image` SET  
+                imageName='$imageName', 
+                imageClass='$imageClass'
+                
+                
+                 WHERE imageID='$imageID'";
+            
+            if (mysqli_query($conn, $sql)){
+                
+                header("Location: adminPage.php");
+            }
+              else {
+                echo "Error" . mysqli_error($conn);
+            }
+            
+        }
+        if (isset($_POST["deleteImage"])){
+            $imageID = filter_input(INPUT_POST, "imageID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            $sql = "DELETE FROM `image` WHERE imageID='$imageID'";
+            if (mysqli_query($conn, $sql)){
+                header("Location: adminPage.php");
+                
+            }
+              else {
+                echo "Error" . mysqli_error($conn);
+            }
+            
+        }
+
+        if (isset($_POST["addImageInfo"])){
+            
+            $image = $_FILES["images"]["tmp_name"];
+            $imageContent = addslashes(file_get_contents($image));
+            $imageName = filter_input(INPUT_POST, "imageName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $imageClass = filter_input(INPUT_POST, "imageClass",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            
+            $sql = "INSERT INTO `image`(image,imageName,imageClass)
+            VALUES ('$imageContent','$imageName','$imageClass')";
+            if (mysqli_query($conn, $sql)){
+                
+                header("Location: adminPage.php");
+            }
+            else {
+                echo "Error" . mysqli_error($conn);
+            }
+            
+            
+        }
+
     ?>
 
 
@@ -589,6 +652,54 @@
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             <input type="text" name="hotelID"  value=<?php echo $hotel["hotelID"] ?> class="hiddenVariables">
             <input type="submit" value="Delete hotel" name="deleteHotel">
+        </form>
+        <br>
+        
+    </div>
+
+
+<?php endforeach ?>
+
+
+
+
+
+<h1>Image details</h1>
+
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                
+                <label for="image">Add image:</label>
+                <input type="file" name="image">
+
+                <label for="imageName">Image name:</label>
+                <input type="text" name="imageName"  >
+
+                <label for="imageClass">Image class:</label>
+                <input type="text" name="imageClass" >
+
+                <input type="submit" value="Add image" name="addImageInfo">
+    </form>
+<?php foreach($images as $image): ?>
+
+    <div class="imageDisplay">
+        
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
+            
+            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($image['image'])?>" alt="">
+            <label for="imageID">ImageID: <?php echo $image["imageID"]?></label>
+            <input type="text" name="imageID" value=<?php echo $image["imageID"]?> class="hiddenVariables">
+
+            <label for="imageName">Image name:</label>
+            <input type="text" name="imageName" value=<?php echo $image["imageName"]?> >
+
+            <label for="imageClass">Image class:</label>
+            <input type="text" name="imageClass" value=<?php echo $image["imageClass"]?> >
+
+            <input type="submit" value="Update information" name="updateImageInfo">
+        </form>
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+            <input type="text" name="imageID"  value=<?php echo $image["imageID"] ?> class="hiddenVariables">
+            <input type="submit" value="Delete image" name="deleteImage">
         </form>
         <br>
         

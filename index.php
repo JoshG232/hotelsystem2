@@ -1,4 +1,4 @@
-
+<?php include "./config/database.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +9,40 @@
     <script src="./app.js"></script>
 
 </head>
-<body onLoad="slideShow(0)">
+
+<body onLoad="slideShow()">
+<?php
+$sql = "SELECT * FROM `image`";
+$result = mysqli_query($conn,$sql);
+$images = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
+?>
+    
     <header>
       <?php include 'headerNav.php';?>
       <!-- <?php include 'header.html';?> -->
     </header>
+
+    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" height = "100px" weight="200px" class = "imgsForSlide" >
+    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" height = "100px" weight="200px"  class = "imgsForSlide">
+    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" height = "100px" weight="200px" class = "imgsForSlide" >
     
     
     
+    
+
+
+
+
+
+
+
+
+
+
+
+
     <h1>Slide show of images</h1>
 
     <img name="slide" alt="" height = "100px" weight="200px"> 

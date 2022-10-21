@@ -2,10 +2,15 @@ var x = 0;
 var images = [];
 
 images = ["img1.jpg","img2.jpg","img3.jpg","img4.jpg"]
+images2 = document.getElementsByClassName("imgsForSlide");
+
+
+
+
 
 function slideShow(i){
-	// console.log(image)
-	
+	console.log(images)
+	console.log(images2)
 	x += i
 	if (x > images.length - 1){
 		x = 0;

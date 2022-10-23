@@ -8,13 +8,13 @@
     <title>Hotel Website</title>
     <script src="./app.js"></script>
 	<style>
-	img.hiddenImages{
+	div.hiddenImages{
         display:none;
     }
 	</style>
 </head>
 
-<body onLoad="slideShow()">
+<body onLoad="displaySlideShow()">
 <?php
 $sql = "SELECT * FROM `image`";
 $result = mysqli_query($conn,$sql);
@@ -47,11 +47,22 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     <h1>Slide show of images</h1>
 
-    <img name="slide" alt="" height = "100px" weight="200px"> 
-    
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" height = "100px" weight="200px" class = "imgsForSlide hiddenImages" id="1" >
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" height = "100px" weight="200px"  class = "imgsForSlide hiddenImages" id="2" >
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" height = "100px" weight="200px" class = "imgsForSlide hiddenImages" id="3">
+    <div class = "imgsForSlide hiddenImages">
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" height = "100px" weight="200px"  id="1" >
+      <p>Caption 1</p>
+    </div>
+    <div class = "imgsForSlide hiddenImages">
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" height = "100px" weight="200px"  id="1" >
+      <p>Caption 2</p>
+    </div>
+    <div class = "imgsForSlide hiddenImages">
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" height = "100px" weight="200px"  id="1" >
+      <p>Caption 3</p>
+    </div>
+  
+      
+      
+      
     
     <div>
       <div>
@@ -67,8 +78,10 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <img src="img4.jpg" alt="" height="100px" width="100px" onClick="selectedSlide(3)">
       </div> -->
     </div>       
-        <a class="previous" onclick="slideShow(-1)">❮</a>
-        <a class="next" onclick="slideShow(1)">❯</a>
+        <a class="previous" onclick="slideShow(-1)"><-</a>
+        <a class="next" onclick="slideShow(1)">-></a>
+        <a class="first" onclick="selectedSlide(0)">First</a>
+        <a class="last" onclick="selectedSlide(2)">Last</a>
         <a class="random" onclick="randomSlide()">Random</a>
         </div>
         

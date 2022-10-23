@@ -11,7 +11,14 @@
 </style>
 <body onload="locationSelection()"></body>
 <?php 
-    
+    function checkDates($start,$end,$roomID){
+        echo $start;
+        echo $end;
+        $start = new DateTime($start);
+        $end = new DateTime($end);
+        $interval = $start->diff($end);
+        echo $interval->days;
+    }
     if(isset($_POST['submitHotelList'])){
         $selectedHotel = $_POST['hotelList'];
         $sql = "SELECT * FROM room WHERE hotelID='$selectedHotel'";
@@ -28,27 +35,48 @@
 
     if (isset($_POST["submitBooking"])){
         
-        $hotelID = filter_input(INPUT_POST, "hotelID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $startDateBooked = filter_input(INPUT_POST, "startDateBooked",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $endDateBooked = filter_input(INPUT_POST, "endDateBooked",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $roomID = filter_input(INPUT_POST, "roomID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        checkDates($startDateBooked,$endDateBooked,$roomID);
+
+        $hotelID = filter_input(INPUT_POST, "hotelID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $customerID = $_SESSION['customerID'];
-        $dateBooked = filter_input(INPUT_POST, "dateBooked",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $nights = filter_input(INPUT_POST, "nights",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $adults = filter_input(INPUT_POST, "adults",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $children = filter_input(INPUT_POST, "children",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $booked = "0";
         $checkIn = "11AM" ;
         $checkOut = "10AM";
+
+
+        $dateBooked = $startDateBooked;
+        $startDateBooked = new DateTime($startDateBooked);
+        $endDateBooked = new DateTime($endDateBooked);
+        $interval = $startDateBooked->diff($endDateBooked);
+        $nights = $interval->days;
         
+        
+        // for($x=0; $x < $nights; $x++){
+        //     $sql = "INSERT INTO booking(hotelID,roomID,customerID,adults,children,dateBooked,booked,checkIn,checkOut)
+        //     VALUES ('$hotelID','$roomID','$customerID','$adults','$children','$dateBooked','$booked','$checkIn','$checkOut')";
+        //     if (mysqli_query($conn, $sql)){
+                
+        //         echo "All Booked";
+        //     }
+        //     else {
+        //         echo "Error" . mysqli_error($conn);
+        //     }
+        //     $startDateBooked->modify('+1 day');
+        //     $dateBooked = $startDateBooked->format('Y-m-d');
+
+            
+            
+
+        // }
 
         
-        $sql = "INSERT INTO booking(hotelID,roomID,customerID,adults,children,dateBooked,booked,checkIn,checkOut)
-        VALUES ('$hotelID','$roomID','$customerID','$adults','$children','$dateBooked','$booked','$checkIn','$checkOut')";
-        if (mysqli_query($conn, $sql)){
-            
-            echo "All Booked";
-        }
-          else {
-            echo "Error" . mysqli_error($conn);
-        }
+        
     }
 ?>
 
@@ -84,11 +112,17 @@
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             <label for="adults">Number of Adults</label>
             <input type="number" name="adults" min="0" max="2"> 
+
             <label for="children">Number of children</label>
             <input type="number" name="children" min="0" max="2">
-            <label for="dateBooked">Select a date to book:</label>
-            <input type="date" name="dateBooked" >
 
+            <label for="startDateBooked">Select a start date to book:</label>
+            <input type="date" name="startDateBooked" min="<?php echo date("Y-m-d"); ?>">
+
+            <label for="endDateBooked">Select a end date to book:</label>
+            <input type="date" name="endDateBooked" min="<?php echo date("Y-m-d"); ?>">
+
+            
             <input type="text" name="hotelID" value=<?php echo $room["hotelID"] ?> class="hiddenVariables">
             <input type="text" name="roomID" value=<?php echo $room["roomID"] ?> class="hiddenVariables">
             

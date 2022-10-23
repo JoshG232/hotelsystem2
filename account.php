@@ -20,7 +20,12 @@
     $customerDetails = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     $customerID = $_SESSION["customerID"];
-    $sql = "SELECT * FROM booking WHERE customerID='$customerID' AND booked='1'";
+    $sql = "SELECT * FROM booking WHERE customerID='$customerID' AND booked='1' AND dateBooked < CURDATE()";
+    $result = mysqli_query($conn,$sql);
+    $previousBookings = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    $customerID = $_SESSION["customerID"];
+    $sql = "SELECT * FROM booking WHERE customerID='$customerID' AND booked='1' AND dateBooked >= CURDATE()";
     $result = mysqli_query($conn,$sql);
     $bookings = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -107,9 +112,11 @@
         
         <br>
     </div>
-
+    <h2>Current bookings</h2>
+    
     <?php foreach($bookings as $booking): ?>
-    <?php
+    
+        <?php
         if ($booking["hotelID"] == '1'){
             $hotelName = "Nottingham";
         }
@@ -121,7 +128,6 @@
         }
 
     ?>
-    <h2>Bookings</h2>
     <div class="accountDisplay">
         <p>Hotel: <?php echo $hotelName ?> </p>
         <P>Date booked for: <?php echo $booking["dateBooked"] ?> </p>
@@ -138,8 +144,52 @@
         <br>
     </div>
 
+    
+
 
     <?php endforeach ?>
+
+    <h2>Previous Bookings</h2>
+    
+    <?php foreach($previousBookings as $booking): ?>
+    
+        <?php
+            if($booking["dateBooked"] < date("Y-m-d")){
+                
+            }
+            if ($booking["hotelID"] == '1'){
+                $hotelName = "Nottingham";
+            }
+            if ($booking["hotelID"] == '2'){
+                $hotelName = "Derby";
+            }
+            if ($booking["hotelID"] == '3'){
+                $hotelName = "Liverpool";
+            }
+
+        ?>
+    <div class="accountDisplay" >
+        <p>Hotel: <?php echo $hotelName ?> </p>
+        <P>Date booked for: <?php echo $booking["dateBooked"] ?> </p>
+        <p>Booking ID: <?php echo $booking["bookingID"] ?> </p>
+        <p>Check in time:<?php echo $booking["checkIn"] ?> </p>
+        <p>Check out time:<?php echo $booking["checkOut"] ?> </p>
+        <p>Adults:<?php echo $booking["adults"] ?> </p>
+        <p>Children:<?php echo $booking["children"] ?> </p>
+        <!-- <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+            <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
+            <input type="submit" value="Delete booking" name="deleteBooking">
+        </form> -->
+        
+        <br>
+    </div>
+
+    
+
+
+    <?php endforeach ?>
+
+    
     <footer>
         <?php include 'footer.html' ?>
     </footer>

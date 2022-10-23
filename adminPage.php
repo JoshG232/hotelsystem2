@@ -552,7 +552,7 @@
                 <input type="text" name="children"  >
 
                 <label for="dateBooked">Date Booked:</label>
-                <input type="date" name="dateBooked"  >
+                <input type="date" name="dateBooked" min="<?php echo date("Y-m-d"); ?>" >
 
                 <label for="booked">Booked:</label>
                 <input type="text" name="booked"  >

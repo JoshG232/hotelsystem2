@@ -2,63 +2,54 @@ var x = 0;
 var images = [];
 
 
-
-
-// function slideShow(i){
-// 	console.log(images)
-	
-// 	x += i
-// 	if (x > images.length - 1){
-// 		x = 0;
-// 	}
-// 	if (x < 0){
-// 		x = images.length - 1
-// 	}
-// 	document.slide.src = images[x]
-
-// }
-// function randomSlide(){
-// 	x = Math.floor(Math.random() * images.length);
-// 	console.log(x)
-// 	document.slide.src = images[x]
-
-// }
-
-// function selectedSlide(current){
-// 	document.slide.src = images[current]
-// 	x = current;
-// }
-
 images = document.getElementsByClassName("imgsForSlide");
 
-function slideShow(){
-	console.log(images);
-	images[1].style.display = "block";
+function displaySlideShow(){
+	console.log(images)
+	images[0].style.display = "block";
 }
 
-// function slideShow(i){
-// 	console.log(images)
+function slideShow(i){
+	x += i
+	if (x > images.length - 1){
+		x = 0;
+		images[x].style.display = "block";
+		images[images.length-1].style.display = "none";
+	}
+	if (x < 0){
+		x = images.length - 1
+		images[x].style.display = "block";
+		images[0].style.display = "none";
+
+	}
+	else{
+		images[x].style.display = "block";
+		images[x-i].style.display = "none";
+	}
 	
-// 	x += i
-// 	if (x > images.length - 1){
-// 		x = 0;
-// 	}
-// 	if (x < 0){
-// 		x = images.length - 1
-// 	}
-// 	document.slide.src = images[x]
+	
 
-// }
-// function randomSlide(){
-// 	x = Math.floor(Math.random() * images.length);
-// 	console.log(x)
-// 	document.slide.src = images[x]
 
-// }
+}
+//Random image for slide show
+function randomSlide(){
+	current = x
+	x = Math.floor(Math.random() * images.length);
+	console.log(x)
+	//Stops the slide show display no image with logic of code
+	if (current === x){
+		randomSlide()
+	}
+	images[x].style.display = "block";
+	images[current].style.display = "none";
 
-// function selectedSlide(current){
-// 	document.slide.src = images[current]
-// 	x = current;
-// }
+
+}
+
+function selectedSlide(current){
+	images[current].style.display = "block";
+	images[x].style.display = "none";
+	x = current;
+}
 
 

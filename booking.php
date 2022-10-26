@@ -1,5 +1,6 @@
-<?php include "./config/database.php"; ?>
+<?php require './config/database.php';?>
 <?php include 'headerNav.php';?>
+
 <script src="./app.js"></script>
 
 <style>
@@ -11,14 +12,15 @@
 </style>
 <body onload="locationSelection()"></body>
 <?php 
-    function checkDates($start,$end,$roomID){
-        echo $start;
-        echo $end;
-        $start = new DateTime($start);
-        $end = new DateTime($end);
-        $interval = $start->diff($end);
-        echo $interval->days;
-    }
+    $start;
+    $end ;
+    $date;
+    $alreadyBooked = False;
+    $displayDates = "";
+    
+    
+    
+    
     if(isset($_POST['submitHotelList'])){
         $selectedHotel = $_POST['hotelList'];
         $sql = "SELECT * FROM room WHERE hotelID='$selectedHotel'";
@@ -34,46 +36,92 @@
     
 
     if (isset($_POST["submitBooking"])){
-        
         $startDateBooked = filter_input(INPUT_POST, "startDateBooked",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $endDateBooked = filter_input(INPUT_POST, "endDateBooked",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $roomID = filter_input(INPUT_POST, "roomID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        checkDates($startDateBooked,$endDateBooked,$roomID);
 
-        $hotelID = filter_input(INPUT_POST, "hotelID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $customerID = $_SESSION['customerID'];
-        $nights = filter_input(INPUT_POST, "nights",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $adults = filter_input(INPUT_POST, "adults",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $children = filter_input(INPUT_POST, "children",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $booked = "0";
-        $checkIn = "11AM" ;
-        $checkOut = "10AM";
-
-
-        $dateBooked = $startDateBooked;
-        $startDateBooked = new DateTime($startDateBooked);
-        $endDateBooked = new DateTime($endDateBooked);
-        $interval = $startDateBooked->diff($endDateBooked);
-        $nights = $interval->days;
+        $datesToCheck = [];
+        $arrDatesBooked = [];
+        $start = new DateTime($startDateBooked);
+        $end = new DateTime($endDateBooked);
+        $interval = $start->diff($end);
+        if ($interval->days === 1){
+            $start = $start->format('Y-m-d');
+            $datesToCheck = [$start];
+        } else{
+            $start = $start->format('Y-m-d');
+            $datesToCheck = [$start];
+            $start = new DateTime($start);
+            for ($x=0; $x<$interval->days; $x++){
+                $date = $start->modify('+1 day');
+                $date = $date->format('Y-m-d');
+                array_push($datesToCheck,$date);
+            }
+            array_pop($datesToCheck);
+        }
         
-        
-        // for($x=0; $x < $nights; $x++){
-        //     $sql = "INSERT INTO booking(hotelID,roomID,customerID,adults,children,dateBooked,booked,checkIn,checkOut)
-        //     VALUES ('$hotelID','$roomID','$customerID','$adults','$children','$dateBooked','$booked','$checkIn','$checkOut')";
-        //     if (mysqli_query($conn, $sql)){
+        foreach ($datesToCheck as $date){
+            $sql= "SELECT dateBooked FROM booking WHERE `dateBooked`='$date' AND roomID='$roomID' ";
+            $result = mysqli_query($conn,$sql);
+            if (mysqli_num_rows($result)==0) {
                 
-        //         echo "All Booked";
-        //     }
-        //     else {
-        //         echo "Error" . mysqli_error($conn);
-        //     }
-        //     $startDateBooked->modify('+1 day');
-        //     $dateBooked = $startDateBooked->format('Y-m-d');
+                // echo "nice not booked";
+            } else {
+                $alreadyBooked = True;
+                array_push($arrDatesBooked,$date);
+                // echo "already booked";
+            }
+            
+        }
+        if ($alreadyBooked === True){
+            $displayDates = "Sorry but the dates " . implode($arrDatesBooked) . " are already booked for this room. Please try again.";
+        }
+        else{
+            $hotelID = filter_input(INPUT_POST, "hotelID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $customerID = $_SESSION['customerID'];
+            $nights = filter_input(INPUT_POST, "nights",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $adults = filter_input(INPUT_POST, "adults",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $children = filter_input(INPUT_POST, "children",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $booked = "0";
+            $checkIn = "11AM" ;
+            $checkOut = "10AM";
 
+
+            $dateBooked = $startDateBooked;
+            $startDateBooked = new DateTime($startDateBooked);
+            $endDateBooked = new DateTime($endDateBooked);
+            $interval = $startDateBooked->diff($endDateBooked);
+            $nights = $interval->days;
             
             
+            for($x=0; $x < $nights; $x++){
+                $sql = "INSERT INTO booking(hotelID,roomID,customerID,adults,children,dateBooked,booked,checkIn,checkOut)
+                VALUES ('$hotelID','$roomID','$customerID','$adults','$children','$dateBooked','$booked','$checkIn','$checkOut')";
+                if (mysqli_query($conn, $sql)){
+                    
+                    echo "All Booked";
+                }
+                else {
+                    echo "Error" . mysqli_error($conn);
+                }
+                $startDateBooked->modify('+1 day');
+                $dateBooked = $startDateBooked->format('Y-m-d');
 
-        // }
+                
+                
+
+            }
+        }
+        
+    
+
+        
+        
+        
+        
+        
+
+        
 
         
         
@@ -96,7 +144,7 @@
 
 </form>
 
-
+<p><?php echo $displayDates?></p>
 
 <?php foreach($roomToBook as $room): ?>
 
@@ -132,6 +180,7 @@
         </form>
         
         <br>
+
     </div>
 
 

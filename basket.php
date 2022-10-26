@@ -33,7 +33,26 @@
             $sql = "UPDATE booking SET booked='1' WHERE bookingID='$bookingID'";
             if (mysqli_query($conn, $sql)){
             
-                header("Location: index.php");
+                header("Location: basket.php");
+            }
+              else {
+                echo "Error" . mysqli_error($conn);
+            }
+            
+        }
+        if (isset($_POST["updateBooking"])){
+            $bookingID = filter_input(INPUT_POST, "bookingID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $adults = filter_input(INPUT_POST, "adults",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $children = filter_input(INPUT_POST, "children",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            $sql = "UPDATE booking SET 
+                adults='$adults', 
+                children='$children'
+                 WHERE bookingID='$bookingID'";
+            echo $sql;
+            if (mysqli_query($conn, $sql)){
+                
+                header("Location: basket.php");
             }
               else {
                 echo "Error" . mysqli_error($conn);
@@ -59,38 +78,51 @@
         
     ?>
     <?php foreach($bookings as $booking): ?>
-    <?php
-        if ($booking["hotelID"] == '1'){
-            $hotelName = "Nottingham";
-        }
-        if ($booking["hotelID"] == '2'){
-            $hotelName = "Derby";
-        }
-        if ($booking["hotelID"] == '3'){
-            $hotelName = "Liverpool";
-        }
+        <?php
+            if ($booking["hotelID"] == '1'){
+                $hotelName = "Nottingham";
+            }
+            if ($booking["hotelID"] == '2'){
+                $hotelName = "Derby";
+            }
+            if ($booking["hotelID"] == '3'){
+                $hotelName = "Liverpool";
+            }
 
-    ?>
-    <div class="basketDisplay">
-        <p>Hotel: <?php echo $hotelName ?> </p>
-        <P>Date booked for: <?php echo $booking["dateBooked"] ?> </p>
-        <p>Booking ID: <?php echo $booking["bookingID"] ?> </p>
-        <p>Check in time:<?php echo $booking["checkIn"] ?> </p>
-        <p>Check out time:<?php echo $booking["checkOut"] ?> </p>
-        <p>Adults:<?php echo $booking["adults"] ?> </p>
-        <p>Children:<?php echo $booking["children"] ?> </p>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
-            <input type="submit" value="Confirm booking" name="confirmBooking">
-        </form>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
-            <input type="submit" value="Delete booking" name="deleteBooking">
-        </form>
+        ?>
+        <div class="basketDisplay">
+            <p>Hotel: <?php echo $hotelName ?> </p>
+            <P>Date booked for: <?php echo $booking["dateBooked"] ?> </p>
+            <p>Booking ID: <?php echo $booking["bookingID"] ?> </p>
+            <p>Check in time:<?php echo $booking["checkIn"] ?> </p>
+            <p>Check out time:<?php echo $booking["checkOut"] ?> </p>
+            <p>Adults:<?php echo $booking["adults"] ?> </p>
+            <p>Children:<?php echo $booking["children"] ?> </p>
 
-        
-        <br>
-    </div>
+            
+
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <label for="adults">Number of Adults</label>
+                <input type="number" name="adults" min="0" max="2"> 
+
+                <label for="children">Number of children</label>
+                <input type="number" name="children" min="0" max="2">
+                <br>
+                <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
+                <input type="submit" value="Update booking" name="updateBooking">
+            </form>
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
+                <input type="submit" value="Confirm booking" name="confirmBooking">
+            </form>
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
+                <input type="submit" value="Delete booking" name="deleteBooking">
+            </form>
+
+            
+            <br>
+        </div>
 
 
     <?php endforeach ?>

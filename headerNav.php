@@ -62,6 +62,7 @@
                 <a href="booking.php" class="navListItem2">Booking</a>
                 <a href="basket.php" class="navListItem2">Basket</a>
                 <a href="account.php" class="navListItem2">Account</a>
+                <a href="wishlist.php" class="navListItem2">Wishlist</a>
                 <a href="logout.php" class="navListItem2">Logout</a>
                 <a href="loginRegister.php" class="navListItem3">Login/Register</a>
             </div>

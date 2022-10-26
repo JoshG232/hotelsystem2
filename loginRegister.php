@@ -141,7 +141,7 @@
             </div>
 
             <label for="password">Password:</label>
-            <input type="text" name="password" id="password" value="<?php echo $_POST['password'] ?? ''; ?>">
+            <input type="password" name="password" id="password" value="<?php echo $_POST['password'] ?? ''; ?>">
             <div>
                 <?php echo $passwordEmpty; ?>
             </div>

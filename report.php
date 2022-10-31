@@ -9,8 +9,9 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
-    <?php include 'headerNav.html';?>
+    <?php include 'headerNav.php';?>
     <?php include 'header.html';?>
     <h1>Report page</h1>
+    <?php include 'footer.html' ?>
 </body>
 </html>

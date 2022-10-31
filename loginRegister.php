@@ -68,7 +68,7 @@
                 $nationality = filter_input(INPUT_POST, "nationality", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             }
             
-            if (empty($firstName) && empty($lastName) && empty($emailEmpty) && empty($passwordEmpty) && empty($genderEmpty) && empty($ageEmpty) && empty($nationalityEmpty)){
+            if (empty($firstNameEmpty) && empty($lastNameEmpty) && empty($emailEmpty) && empty($passwordEmpty) && empty($genderEmpty) && empty($ageEmpty) && empty($nationalityEmpty)){
                 $sql= "SELECT email FROM customer WHERE email='$email'";
                 $result = mysqli_query($conn,$sql);
                 if (mysqli_num_rows($result)==0) {

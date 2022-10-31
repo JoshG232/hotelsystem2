@@ -2,7 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-    
+
+    div.basketDisplay{
+        display: block;
+    }
+    input.hiddenVariables{
+        display:none;
+    }
+
+
+
 
 
 </style>
@@ -15,7 +24,86 @@
 </head>
 <body>
     <?php include 'headerNav.php';?>
+    <?php 
+        $customerID = $_SESSION["customerID"];
+        $sql = "SELECT * FROM booking WHERE customerID='$customerID' AND wishlist='1' ";
+        $result = mysqli_query($conn,$sql);
+        $wishlist = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+        if (isset($_POST["deleteWishlistItem"])){
+            $bookingID = filter_input(INPUT_POST, "bookingID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            echo $bookingID;
+            $sql = "DELETE FROM `booking` WHERE bookingID='$bookingID'";
+            if (mysqli_query($conn, $sql)){
+                echo "All confirmed";
+            }
+              else {
+                echo "Error" . mysqli_error($conn);
+            }
+        }
+        if (isset($_POST["addToBasket"])){
+            $bookingID = filter_input(INPUT_POST, "bookingID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            
+            $sql = "UPDATE booking SET wishlist='0' WHERE bookingID='$bookingID'";
+            if (mysqli_query($conn, $sql)){
+            
+                header("Location: wishlist.php");
+            }
+              else {
+                echo "Error" . mysqli_error($conn);
+            }
+            
+        }
+
+
+    ?>
+    <?php foreach($wishlist as $wishlistItem): ?>
+        <?php
+            if ($wishlistItem["hotelID"] == '1'){
+                $hotelName = "Nottingham";
+            }
+            if ($wishlistItem["hotelID"] == '2'){
+                $hotelName = "Derby";
+            }
+            if ($wishlistItem["hotelID"] == '3'){
+                $hotelName = "Liverpool";
+            }
+
+        ?>
+        <div class="basketDisplay">
+            <p>Hotel: <?php echo $hotelName ?> </p>
+            <P>Date booked for: <?php echo $wishlistItem["dateBooked"] ?> </p>
+            <p>Booking ID: <?php echo $wishlistItem["bookingID"] ?> </p>
+            <p>Check in time:<?php echo $wishlistItem["checkIn"] ?> </p>
+            <p>Check out time:<?php echo $wishlistItem["checkOut"] ?> </p>
+            <p>Adults:<?php echo $wishlistItem["adults"] ?> </p>
+            <p>Children:<?php echo $wishlistItem["children"] ?> </p>
+
+            
+
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                
+                
+                
+                <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
+                
+            </form>
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
+                <input type="submit" value="Add to basket" name="addToBasket">
+            </form>
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
+                <input type="submit" value="Delete wishlist item" name="deleteWishlistItem">
+            </form>
+
+            
+            
+            <br>
+        </div>
+
+
+    <?php endforeach ?>
     <footer>
         <?php include 'footer.html' ?>
     </footer>

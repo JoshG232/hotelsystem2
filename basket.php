@@ -23,7 +23,7 @@
     <?php
         $bookingHotelID = "";
         $customerID = $_SESSION["customerID"];
-        $sql = "SELECT * FROM booking WHERE customerID='$customerID' AND booked='0'";
+        $sql = "SELECT * FROM booking WHERE customerID='$customerID' AND booked='0' AND wishlist='0' ";
         $result = mysqli_query($conn,$sql);
         $bookings = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
@@ -119,6 +119,7 @@
                 <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
                 <input type="submit" value="Delete booking" name="deleteBooking">
             </form>
+
 
             
             <br>

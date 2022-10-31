@@ -24,8 +24,9 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
     
     <header>
+      <?php include 'header.html';?>
       <?php include 'headerNav.php';?>
-      <!-- <?php include 'header.html';?> -->
+      
     </header>
 
     

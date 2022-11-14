@@ -16,7 +16,12 @@
     </style>
 
 </head>
-<body>
+<body onLoad="<?php
+$customerID = $_SESSION["customerID"];
+if ($customerID !== 22){
+    header("Location: index.php");
+}
+?>">
     
     <?php include 'headerNav.php';?>
     <?php 
@@ -148,6 +153,7 @@
             $lastName = filter_input(INPUT_POST, "lastName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, "email",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, "password",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $gender = filter_input(INPUT_POST, "gender",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $age = filter_input(INPUT_POST, "age",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $nationality = filter_input(INPUT_POST, "nationality",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -156,7 +162,7 @@
             $result = mysqli_query($conn,$sql);
             if (mysqli_num_rows($result)==0) {
                 $sql = "INSERT INTO customer(firstName,lastName,email,password,gender,age,nationality)
-                VALUES ('$firstName','$lastName','$email','$password','$gender','$age','$nationality')";
+                VALUES ('$firstName','$lastName','$email','$hashedPassword','$gender','$age','$nationality')";
                 if (mysqli_query($conn, $sql)){
                     
                     header("Location: adminPage.php");

@@ -1,12 +1,11 @@
 var x = 0;
 var images = [];
 
-
 images = document.getElementsByClassName("imgsForSlide");
 
 function displaySlideShow(){
-	console.log(images)
 	images[0].style.display = "block";
+	
 }
 
 function slideShow(i){
@@ -26,6 +25,7 @@ function slideShow(i){
 		images[x].style.display = "block";
 		images[x-i].style.display = "none";
 	}
+	
 	
 	
 

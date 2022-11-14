@@ -2,10 +2,17 @@
 
 <?php include 'header.html';?>
 <?php include 'headerNav.php';?>
-
+<style>
+    input.hiddenVariables{display:none;}
+    form.input{
+        top: 10%;
+    
+    }
+</style>
 
 <body>
     <?php
+        
         $sql = "SELECT * FROM hotel";
         $result = mysqli_query($conn,$sql);
         $hotels = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -21,6 +28,20 @@
         $sql = "SELECT * FROM `image` ";
         $result = mysqli_query($conn,$sql);
         $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        if(isset($_POST["bookingHotel"])){
+            $hotelIDForBooking = filter_input(INPUT_POST, "hotelID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $_SESSION["hotelIDForBooking"] = $hotelIDForBooking; 
+            header("Location booking.php");
+            exit();
+        }
+        if(isset($_POST["bookingRoom"])){
+            $roomIDForBooking = filter_input(INPUT_POST, "roomID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $_SESSION["roomIDForBooking"] = $roomIDForBooking; 
+            header("Location booking.php");
+            exit();
+        }
+        
     ?>
 
 
@@ -51,6 +72,10 @@
                 
                 <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID]["image"])?>" alt="" height="100px" width="200px">
                 
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <input type="text" name="hotelID" value=<?php echo $hotel["hotelID"] ?> class="hiddenVariables" >
+                    <input type="submit" name ="bookingHotel" value="Find rooms in this hotel">
+                </form>
                 <br>
             </div>
         <?php endforeach ?>
@@ -83,6 +108,10 @@
                 
                 <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" height="100px" width="200px">
                 <?php $imageID = $imageID + 1 ?>
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <input type="text" name="roomID" value=<?php echo $room["roomID"]?> class="hiddenVariables" >
+                    <input type="submit" name ="bookingRoom" value="Book this room">
+                </form>
             </div>
             
         

@@ -47,6 +47,8 @@
             }
             else {
                 $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
             }
 
             if (empty($_POST["gender"])){
@@ -72,11 +74,11 @@
                 $sql= "SELECT email FROM customer WHERE email='$email'";
                 $result = mysqli_query($conn,$sql);
                 if (mysqli_num_rows($result)==0) {
-                    $sql = "INSERT INTO customer(firstName,lastName,email,password,gender,age,nationality)
-                    VALUES ('$firstName','$lastName','$email','$password','$gender','$age','$nationality')";
+                    echo $sql = "INSERT INTO customer(firstName,lastName,email,password,gender,age,nationality)
+                    VALUES ('$firstName','$lastName','$email','$hashedPassword','$gender','$age','$nationality')";
                     if (mysqli_query($conn, $sql)){
                         
-                        header("Location: index.php");
+                        // header("Location: index.php");
                     }
                     else {
                         echo "Error" . mysqli_error($conn);
@@ -105,7 +107,7 @@
             $customerID = $loginInfo[0]["customerID"];
             
             // var_export($actPassword);
-            if ($password == "$actPassword"){
+            if (password_verify($password,$actPassword)){
                 $_SESSION["firstName"] = $firstName;
                 $_SESSION["customerID"] = $customerID;
                 

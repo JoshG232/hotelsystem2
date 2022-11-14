@@ -23,7 +23,7 @@
         $customerID = $_SESSION["customerID"];
         $loggedIn = "unset";
         $loggedIn2 = "none";
-        if ($customerID == "22"){
+        if ($customerID == "31"){
             $adminRights = "unset";
         }
         

@@ -36,6 +36,7 @@
         $lastName = filter_input(INPUT_POST, "lastName",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, "email",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, "password",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $gender = filter_input(INPUT_POST, "gender",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $age = filter_input(INPUT_POST, "age",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $nationality = filter_input(INPUT_POST, "nationality",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -43,7 +44,7 @@
             firstName='$firstName', 
             lastName='$lastName', 
             email='$email',
-            password='$password', 
+            password='$hashedPassword', 
             gender='$gender',
             age='$age',
             nationality='$nationality'
@@ -89,7 +90,7 @@
             <input type="email" name="email" value=<?php echo $customerDetails[0]["email"]?> >
 
             <label for="password">Password:</label>
-            <input type="password" name="password" value=<?php echo $customerDetails[0]["password"]?> >
+            <input type="text" name="password" placeholder="Enter new password" >
 
             <label for="gender">Gender:</label>
             <input type="text" name="gender" value=<?php echo $customerDetails[0]["gender"]?> >

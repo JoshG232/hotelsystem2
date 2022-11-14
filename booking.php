@@ -10,7 +10,7 @@
     
     }
 </style>
-<body onload="locationSelection()"></body>
+<body ></body>
 <?php 
     $start;
     $end ;
@@ -26,15 +26,33 @@
     
     if(isset($_POST['submitHotelList'])){
         $selectedHotel = $_POST['hotelList'];
+        
+
         $sql = "SELECT * FROM room WHERE hotelID='$selectedHotel'";
         $result = mysqli_query($conn,$sql);
         $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     } 
     else{
-        $sql = "SELECT * FROM room";
-        $result = mysqli_query($conn,$sql);
-        $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if(isset($_SESSION["hotelIDForBooking"])){
+            $hotelID = $_SESSION["hotelIDForBooking"];
+            $sql = "SELECT * FROM room WHERE hotelID='$hotelID'";
+            $result = mysqli_query($conn,$sql);
+            $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        } 
+        if(isset($_SESSION["roomIDForBooking"])){
+            $roomID = $_SESSION["roomIDForBooking"];
+            $sql = "SELECT * FROM room WHERE roomID='$roomID'";
+            $result = mysqli_query($conn,$sql);
+            $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        } 
+        else{
+            $sql = "SELECT * FROM room";
+            $result = mysqli_query($conn,$sql);
+            $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        }
+        
+        
     }
     
 
@@ -275,7 +293,7 @@
 
 <form action="" method="post" class="selectForm">
     <label for="hotelList">Select Hotel:</label>
-    <select id="hotelList" name="hotelList">
+    <select id="hotelList" name="hotelList" >
         <option value="1">Nottingham</option>
         <option value="2">Derby</option>
         <option value="3">Liverpool</option>

@@ -26,10 +26,8 @@ function slideShow(i){
 		images[x-i].style.display = "none";
 	}
 	
-	
-	
 
-
+	
 }
 //Random image for slide show
 function randomSlide(){
@@ -47,9 +45,17 @@ function randomSlide(){
 }
 
 function selectedSlide(current){
-	images[current].style.display = "block";
-	images[x].style.display = "none";
-	x = current;
+	console.log(current,x);
+	if (current === x){
+
+	}
+	else {
+		images[current].style.display = "block";
+		images[x].style.display = "none";
+		x = current;
+	}
+
+	
 }
 
 

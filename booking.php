@@ -19,26 +19,29 @@
     $displayDates = "";
     $adultsEmpty = $childrenEmpty = $startDateBookedEmpty = $endDateBookedEmpty = "";
     
-    
+    $sql = "SELECT * FROM `image` ";
+    $result = mysqli_query($conn,$sql);
+    $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
     
         
     
     
     if(isset($_POST['submitHotelList'])){
         $selectedHotel = $_POST['hotelList'];
-        
-
         $sql = "SELECT * FROM room WHERE hotelID='$selectedHotel'";
         $result = mysqli_query($conn,$sql);
         $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+        
     } 
     else{
+        
         if(isset($_SESSION["hotelIDForBooking"])){
             $hotelID = $_SESSION["hotelIDForBooking"];
             $sql = "SELECT * FROM room WHERE hotelID='$hotelID'";
             $result = mysqli_query($conn,$sql);
             $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            
         } 
         if(isset($_SESSION["roomIDForBooking"])){
             $roomID = $_SESSION["roomIDForBooking"];
@@ -47,9 +50,7 @@
             $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
         } 
         else{
-            $sql = "SELECT * FROM room";
-            $result = mysqli_query($conn,$sql);
-            $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            
         }
         
         
@@ -310,6 +311,7 @@
     ?>
 </div>
 <br>
+<?php $imageID = 6 ?>
 <?php foreach($roomToBook as $room): ?>
 
     <div>
@@ -319,9 +321,10 @@
         Maximum number of children:<?php echo $room["maxChildren"] ?>
         Bathroom details:<?php echo $room["bathroomDetails"] ?>
         
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" height="100px" width="200px">
+        <?php $imageID = $imageID + 1 ?>
         
-        
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
             <label for="adults">Number of Adults</label>
             <input type="number" name="adults" min="0" max="2" > 
             

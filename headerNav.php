@@ -23,7 +23,7 @@
         $customerID = $_SESSION["customerID"];
         $loggedIn = "unset";
         $loggedIn2 = "none";
-        if ($customerID == "31"){
+        if ($customerID == "1"){
             $adminRights = "unset";
         }
         
@@ -59,7 +59,7 @@
                 <a href="" class="navListItem2"><?php echo "Welcome ". $firstName; ?> </a>
 
                 <a href="adminPage.php" class="navListItem4">Admin Page</a>
-                <a href="booking.php" class="navListItem2">Booking</a>
+                <!-- <a href="booking.php" class="navListItem2">Booking</a> -->
                 <a href="basket.php" class="navListItem2">Basket</a>
                 <a href="account.php" class="navListItem2">Account</a>
                 <a href="wishlist.php" class="navListItem2">Wishlist</a>

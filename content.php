@@ -32,14 +32,14 @@
         if(isset($_POST["bookingHotel"])){
             $hotelIDForBooking = filter_input(INPUT_POST, "hotelID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $_SESSION["hotelIDForBooking"] = $hotelIDForBooking; 
-            header("Location booking.php");
-            exit();
+            header("Location: booking.php");
+            
         }
         if(isset($_POST["bookingRoom"])){
             $roomIDForBooking = filter_input(INPUT_POST, "roomID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $_SESSION["roomIDForBooking"] = $roomIDForBooking; 
-            header("Location booking.php");
-            exit();
+            header("Location: booking.php");
+            
         }
         
     ?>

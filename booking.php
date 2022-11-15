@@ -312,6 +312,7 @@
 </div>
 <br>
 <?php $imageID = 6 ?>
+<?php $imageID2 = 3 ?>
 <?php foreach($roomToBook as $room): ?>
 
     <div>
@@ -322,7 +323,9 @@
         Bathroom details:<?php echo $room["bathroomDetails"] ?>
         
         <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" height="100px" width="200px">
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID2]["image"])?>" alt="" height="100px" width="200px">
         <?php $imageID = $imageID + 1 ?>
+        <?php $imageID2 = $imageID2 + 1 ?>
         
         <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
             <label for="adults">Number of Adults</label>

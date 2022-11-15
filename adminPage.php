@@ -18,9 +18,9 @@
 </head>
 <body onLoad="<?php
 $customerID = $_SESSION["customerID"];
-if ($customerID !== 22){
-    header("Location: index.php");
-}
+// if ($customerID !== 1){
+//     header("Location: index.php");
+// }
 ?>">
     
     <?php include 'headerNav.php';?>

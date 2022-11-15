@@ -4,7 +4,10 @@
     $firstName = "";
     $bookings = "1"
 ?>
-<link rel="stylesheet" href="style.css">
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
 <style>
     .navListItem2 {
         display: <?php echo "$loggedIn" ?>;

@@ -25,7 +25,7 @@
                 $firstNameEmpty = "First name is required";
             }
             else {
-                $firstName = filter_input(INPUT_POST, "firsName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $firstName = filter_input(INPUT_POST, "firstName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             }
 
             if (empty($_POST["lastName"])){
@@ -74,7 +74,7 @@
                 $sql= "SELECT email FROM customer WHERE email='$email'";
                 $result = mysqli_query($conn,$sql);
                 if (mysqli_num_rows($result)==0) {
-                    echo $sql = "INSERT INTO customer(firstName,lastName,email,password,gender,age,nationality)
+                    $sql = "INSERT INTO customer(firstName,lastName,email,password,gender,age,nationality)
                     VALUES ('$firstName','$lastName','$email','$hashedPassword','$gender','$age','$nationality')";
                     if (mysqli_query($conn, $sql)){
                         

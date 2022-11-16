@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Website</title>
     <script src="./app.js"></script>
+    <link rel="stylesheet" href="style.css?<?php echo time(); ?>">
 	<style>
 	div.hiddenImages{
         display:none;
     }
+
 	</style>
 </head>
 
@@ -29,36 +31,35 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
       
     </header>
 
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-    <h1>Slide show of images</h1>
 
     <div class = "imgsForSlide hiddenImages">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" height = "100px" weight="200px"  id="1" >
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" class="slideImgs" id="1" >
       <p>Caption 1</p>
+      <a class="first" onclick="selectedSlide(0)">First</a>
+      <a class="previous" onclick="slideShow(-1)"><-</a>
+      <a class="random" onclick="randomSlide()">Random</a>
+      <a class="next" onclick="slideShow(1)">-></a>
+      <a class="last" onclick="selectedSlide(2)">Last</a>
+        
     </div>
     <div class = "imgsForSlide hiddenImages">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" height = "100px" weight="200px"  id="1" >
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" class="slideImgs"id="1" >
+      
       <p>Caption 2</p>
+      <a class="first" onclick="selectedSlide(0)">First</a>
+      <a class="previous" onclick="slideShow(-1)"><-</a>
+      <a class="random" onclick="randomSlide()">Random</a>
+      <a class="next" onclick="slideShow(1)">-></a>
+      <a class="last" onclick="selectedSlide(2)">Last</a>
     </div>
     <div class = "imgsForSlide hiddenImages">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" height = "100px" weight="200px"  id="1" >
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" class="slideImgs" id="1" >
       <p>Caption 3</p>
+      <a class="first" onclick="selectedSlide(0)">First</a>
+      <a class="previous" onclick="slideShow(-1)"><-</a>
+      <a class="random" onclick="randomSlide()">Random</a>
+      <a class="next" onclick="slideShow(1)">-></a>
+      <a class="last" onclick="selectedSlide(2)">Last</a>
     </div>
   
       
@@ -79,11 +80,7 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <img src="img4.jpg" alt="" height="100px" width="100px" onClick="selectedSlide(3)">
       </div> -->
     </div>       
-        <a class="previous" onclick="slideShow(-1)"><-</a>
-        <a class="next" onclick="slideShow(1)">-></a>
-        <a class="first" onclick="selectedSlide(0)">First</a>
-        <a class="last" onclick="selectedSlide(2)">Last</a>
-        <a class="random" onclick="randomSlide()">Random</a>
+        
         </div>
         
         <br>

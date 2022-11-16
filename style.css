@@ -37,3 +37,24 @@ a {
     position: relative;
     bottom: 15px;
 }
+.imgsForSlide{
+    text-align: center;
+}
+.slideImgs{
+    height: 30%;
+    width: 70%;
+}
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 25%;
+    right: 12%;
+
+    
+}
+.previous {
+    cursor: pointer;
+    position: absolute;
+    top: 25%;
+    left: 12%;
+}

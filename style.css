@@ -58,3 +58,30 @@ a {
     top: 25%;
     left: 12%;
 }
+
+.thumbnails {
+    text-align: center;
+    position: relative;
+    top: 40px;
+
+}
+
+/* Six columns side by side */
+.thumbnailImages {
+    text-align: center;
+    
+    width: 20%;
+    display: inline-block;
+}
+
+#footer{
+    position: absolute;
+    display: block;
+    bottom: 0;
+    width: 100%;
+        
+}
+
+.footerDiv{
+    text-align: center;
+}

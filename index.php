@@ -66,19 +66,17 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
       
       
     
-    <div>
-      <div>
+    <div class="thumbnails">
+      <div class="thumbnailImages">
         <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" height="100px" width="100px" onClick="selectedSlide(0)">
       </div>
-      <div>
+      <div class="thumbnailImages">
         <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" height="100px" width="100px" onClick="selectedSlide(1)">
       </div>
-      <div>
+      <div class="thumbnailImages">
         <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" height="100px" width="100px" onClick="selectedSlide(2)">
       </div>
-      <!-- <div>
-        <img src="img4.jpg" alt="" height="100px" width="100px" onClick="selectedSlide(3)">
-      </div> -->
+      
     </div>       
         
         </div>
@@ -87,7 +85,7 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
 
 
-        <footer>
+        <footer id="footer">
           <?php include 'footer.html' ?>
         </footer>
         

@@ -33,7 +33,7 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
     <div class = "imgsForSlide hiddenImages">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" class="slideImgs" id="1" >
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" class="slideImgs fade" id="1" >
       <p>Caption 1</p>
       <a class="first" onclick="selectedSlide(0)">First</a>
       <a class="previous" onclick="slideShow(-1)"><-</a>
@@ -43,7 +43,7 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
     </div>
     <div class = "imgsForSlide hiddenImages">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" class="slideImgs"id="1" >
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" class="slideImgs fade"id="1" >
       
       <p>Caption 2</p>
       <a class="first" onclick="selectedSlide(0)">First</a>
@@ -53,7 +53,7 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <a class="last" onclick="selectedSlide(2)">Last</a>
     </div>
     <div class = "imgsForSlide hiddenImages">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" class="slideImgs" id="1" >
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" class="slideImgs fade" id="1" >
       <p>Caption 3</p>
       <a class="first" onclick="selectedSlide(0)">First</a>
       <a class="previous" onclick="slideShow(-1)"><-</a>

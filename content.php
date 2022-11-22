@@ -9,7 +9,9 @@
     
     }
 </style>
-
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <?php
         
@@ -64,18 +66,24 @@
                 }
                 $hotelID = $hotel["hotelID"] - 1
             ?>
-            <div class="basketDisplay">
-                <p>Hotel: <?php echo $hotelName ?> </p>
-                <P>Location<?php echo $hotel["location"] ?> </p>
-                <p>Number of rooms : <?php echo $hotel["numberOfRooms"] ?> </p>
-                <p>Unique Feature:<?php echo $hotel["uniqueFeature"] ?> </p>
+            <div class="hotelInfoDiv">
+                <div class="wordsInHotel">
+                    <p class="text">Hotel: <?php echo $hotel["nameOfHotel"] ?> </p>
+                    <P class="text">Location: <?php echo $hotel["location"] ?> </p>
+                    <p class="text">Number of rooms: <?php echo $hotel["numberOfRooms"] ?> </p>
+                    <p class="text">Unique Feature: <?php echo $hotel["uniqueFeature"] ?> </p>
+                    <br>
+                    
+                    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                        <input type="text" name="hotelID" value=<?php echo $hotel["hotelID"] ?> class="hiddenVariables" >
+                        <input type="submit" name ="bookingHotel" value="Find rooms in this hotel" class="text">
+                    </form>
+                </div>
                 
-                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID]["image"])?>" alt="" height="100px" width="200px">
                 
-                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                    <input type="text" name="hotelID" value=<?php echo $hotel["hotelID"] ?> class="hiddenVariables" >
-                    <input type="submit" name ="bookingHotel" value="Find rooms in this hotel">
-                </form>
+                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID]["image"])?>" alt=""class="hotelImage">
+                
+                
                 <br>
             </div>
         <?php endforeach ?>
@@ -83,11 +91,13 @@
     <div class="bathrooms">
         <?php $imageID = 6 ?>
         <?php foreach($bathrooms as $room): ?>
-            <div class="bathroomDetails">
+            <div class="bathroomInfoDiv">
+                <div class="wordsInBathroom">
+                    <p class="text">Bathroom Type: <?php echo $room["bathroomDetails"] ?> </p>
+                </div>
                 
-                <p>Bathroom Type:<?php echo $room["bathroomDetails"] ?> </p>
                 
-                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" height="100px" width="200px">
+                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" class="bathroomImage">
                 <?php $imageID = $imageID + 1 ?>
             </div>
             
@@ -98,20 +108,24 @@
     <div class="rooms">
         <?php $imageID = 3 ?>
         <?php foreach($rooms as $room): ?>
-            <div class="roomDetails">
-                <p>RoomID: <?php echo $room["roomID"] ?> </p>
-                <P>Cost: <?php echo $room["cost"] ?> </p>
-                <p>Beds : <?php echo $room["beds"] ?> </p>
-                <p>Max adults:<?php echo $room["maxAdults"] ?> </p>
-                <p>Max children:<?php echo $room["maxChildren"] ?> </p>
-                <p>Bathroom Type:<?php echo $room["bathroomDetails"] ?> </p>
+            <div class="roomInfoDiv">
+                <div class="wordsInRoom">
+                    <p class="text">RoomID: <?php echo $room["roomID"] ?> </p>
+                    <P class="text">Cost: <?php echo $room["cost"] ?> </p>
+                    <p class="text">Beds: <?php echo $room["beds"] ?> </p>
+                    <p class="text">Max adults: <?php echo $room["maxAdults"] ?> </p>
+                    <p class="text">Max children: <?php echo $room["maxChildren"] ?> </p>
+                    <p class="text">Bathroom Type: <?php echo $room["bathroomDetails"] ?> </p>
+                    <?php $imageID = $imageID + 1 ?>
+                    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                        <input type="text" name="roomID" value=<?php echo $room["roomID"]?> class="hiddenVariables" >
+                        <input type="submit" name ="bookingRoom" value="Book this room" class="text">
+                    </form>
+                </div>
+
                 
-                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" height="100px" width="200px">
-                <?php $imageID = $imageID + 1 ?>
-                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                    <input type="text" name="roomID" value=<?php echo $room["roomID"]?> class="hiddenVariables" >
-                    <input type="submit" name ="bookingRoom" value="Book this room">
-                </form>
+                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" class="roomImage">
+                
             </div>
             
         

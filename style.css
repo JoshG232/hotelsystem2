@@ -21,6 +21,7 @@ a {
     padding: 10px 12px;
     color: white;
     background-color: #333;
+    font-family: sans-serif;
     
 }
 .headerImage{
@@ -36,6 +37,7 @@ a {
     padding-left: 10px;
     position: relative;
     bottom: 15px;
+    font-family: sans-serif;
 }
 .imgsForSlide{
     text-align: center;
@@ -95,4 +97,79 @@ a {
 
 .footerDiv{
     text-align: center;
+}
+
+/* Customization for the hotel cards */
+.hotelInfoDiv{
+    border-style: solid;
+    border-width: 5px;
+    padding: 20px;
+    margin: 20px;
+    
+}
+
+.hotelImage{
+    position: relative;
+    left: 10%;
+    bottom: 100px;
+    height: auto;
+    width: 100%;
+    max-width: 640px;
+}
+
+.wordsInHotel {
+    position: relative;
+    left: 60%;
+}
+.text {
+    display: block;
+    font-size: 24px;
+    font-family: sans-serif;
+}
+
+/* Customization for the bathroom cards */
+
+.bathroomInfoDiv{
+    border-style: solid;
+    border-width: 5px;
+    padding: 20px;
+    margin: 20px;
+    
+}
+
+.bathroomImage{
+    position: relative;
+    bottom: 50px;
+    
+    height: auto;
+    width: 100%;
+    max-width: 640px;
+}
+
+.wordsInBathroom {
+    position: relative;
+    left: 60%;
+}
+
+/* Customization for the room cards */
+
+.roomInfoDiv{
+    border-style: solid;
+    border-width: 5px;
+    padding: 20px;
+    margin: 20px;
+    
+}
+
+.roomImage{
+    position: relative;
+    bottom: 150px;
+    height: auto;
+    width: 100%;
+    max-width: 640px;
+}
+
+.wordsInroom {
+    position: relative;
+    left: 60%;
 }

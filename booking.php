@@ -2,14 +2,18 @@
 <?php include 'headerNav.php';?>
 
 <script src="./app.js"></script>
-
+<?php $errBoxHidden = "none"; ?>
 <style>
     input.hiddenVariables{display:none;}
     form.input{
         top: 10%;
     
     }
+    
 </style>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body ></body>
 <?php 
     $start;
@@ -165,6 +169,8 @@
                     $dateBooked = $startDateBooked->format('Y-m-d');
                 }
             }
+        }else{
+            $errBoxHidden = "block";
         }
     }
     if (isset($_POST["addToWishlist"])){
@@ -198,6 +204,7 @@
         }
         
         if (empty($adultsEmpty) && empty($childrenEmpty) && empty($startDateBookedEmpty) && empty($endDateBookedEmpty)){
+            
             $startDateBooked = filter_input(INPUT_POST, "startDateBooked",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $endDateBooked = filter_input(INPUT_POST, "endDateBooked",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $roomID = filter_input(INPUT_POST, "roomID",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -276,8 +283,12 @@
             }
 
     
-        
+            
+        } 
+        else{
+            $errBoxHidden = "block";
         }
+        
         
         
     
@@ -296,27 +307,26 @@
 ?>
 
 
-<!-- <form action="" method="post" class="selectForm">
-    <label for="hotelList">Select Hotel:</label>
-    <select id="hotelList" name="hotelList" >
-        <option value="1">Nottingham</option>
-        <option value="2">Derby</option>
-        <option value="3">Liverpool</option>
-    </select>
 
-    <input type="submit" name="submitHotelList" value="Submit">
-
-</form> -->
-
-<p><?php echo $displayDates?></p>
 <div>
-    <?php 
-        echo $adultsEmpty . " " . $childrenEmpty . " " . $startDateBookedEmpty . " " . $endDateBookedEmpty;
-    ?>
+    
 </div>
 <br>
 <?php $imageID = 6 ?>
 <?php $imageID2 = 3 ?>
+
+
+<div class="errBox">
+    <p><?php echo $displayDates?></p>
+    
+    <p>
+        <?php 
+            echo nl2br($adultsEmpty . "\n" . $childrenEmpty . "\n" . $startDateBookedEmpty . "\n" . $endDateBookedEmpty)
+        ?>
+
+
+    </p>
+</div>
 
 <?php foreach($hotelSelected as $hotel): ?>
             
@@ -363,8 +373,9 @@
                 <input type="text" name="hotelID" value=<?php echo $room["hotelID"] ?> class="hiddenVariables">
                 <input type="text" name="roomID" value=<?php echo $room["roomID"] ?> class="hiddenVariables">
                 
-                <input type="submit" name="submitBooking" value="Submit Booking" id=<?php $roomID ?> class="inputButtons"></input>
-                <input type="submit" name="addToWishlist" value="Add to wishlist" id=<?php $roomID ?> class="text buttons"></input>
+                <input type="submit" name="submitBooking" value="Submit Booking" class="text inputButtons" id=<?php $roomID ?> ></input>
+                <br>
+                <input type="submit" name="addToWishlist" value="Add to wishlist" class="text buttons" id=<?php $roomID ?> ></input>
             </form>
         </div>
         
@@ -382,7 +393,11 @@
 
     </div>
 
-
+<style>
+    div.errBox {
+        display: <?php echo "$errBoxHidden" ?>
+    }
+</style>
 <?php endforeach ?>
 
 

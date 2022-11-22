@@ -8,6 +8,15 @@
         top: 10%;
     
     }
+    div.needToLogin {
+        border-style: solid;
+        border-width: 5px;
+        border-color: red;
+        color: red;
+        padding: 10px;
+        margin: 20px;
+        display: none;
+    }
 </style>
 <head>
     <link rel="stylesheet" href="style.css">
@@ -32,15 +41,31 @@
         $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         if(isset($_POST["bookingHotel"])){
-            $hotelIDForBooking = filter_input(INPUT_POST, "hotelID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $_SESSION["hotelIDForBooking"] = $hotelIDForBooking; 
-            header("Location: booking.php");
+            if(empty($_SESSION["firstName"])){
+                $loginMessage = "You need to login";
+                $unCoverLogin = "block";
+                
+            }
+            else{
+                $hotelIDForBooking = filter_input(INPUT_POST, "hotelID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $_SESSION["hotelIDForBooking"] = $hotelIDForBooking; 
+                header("Location: booking.php");
+                
+            }
             
         }
         if(isset($_POST["bookingRoom"])){
-            $roomIDForBooking = filter_input(INPUT_POST, "roomID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $_SESSION["roomIDForBooking"] = $roomIDForBooking; 
-            header("Location: booking.php");
+            if(empty($_SESSION["firstName"])){
+                $loginMessage = "You need to login";
+                $unCoverLogin = "block";
+                
+            }
+            else{
+                $roomIDForBooking = filter_input(INPUT_POST, "roomID", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $_SESSION["roomIDForBooking"] = $roomIDForBooking; 
+                header("Location: booking.php");
+            }
+
             
         }
         
@@ -48,7 +73,9 @@
 
 
 
-
+<div class="needToLogin">
+    <p class="text"><?php echo "$loginMessage" ?></p>
+</div>
 
 
 <div>
@@ -117,7 +144,7 @@
                     <p class="text">Max children: <?php echo $room["maxChildren"] ?> </p>
                     <p class="text">Bathroom Type: <?php echo $room["bathroomDetails"] ?> </p>
                     <?php $imageID = $imageID + 1 ?>
-                    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" >
                         <input type="text" name="roomID" value=<?php echo $room["roomID"]?> class="hiddenVariables" >
                         <input type="submit" name ="bookingRoom" value="Book this room" class="text">
                     </form>
@@ -127,12 +154,17 @@
                 <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" class="roomImage">
                 
             </div>
-            
+            <style>
+                div.needToLogin {
+                    display: <?php echo "$unCoverLogin" ?>;
+                }
+            </style>    
         
         
         <?php endforeach ?>
     </div>
 </div>
+
 
 <?php include 'footer.html' ?>
 </body>

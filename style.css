@@ -1,6 +1,6 @@
 body{
     margin: 0 ;
-    
+    overflow-x: hidden;
 }
 
 .rightNav {
@@ -159,11 +159,20 @@ a {
     padding: 20px;
     margin: 20px;
     
+    
+    
 }
 
 .roomImage{
     position: relative;
-    bottom: 150px;
+    bottom: 500px;
+    height: auto;
+    width: 100%;
+    max-width: 640px;
+}
+.bathroomImage{
+    position: relative;
+    bottom: 500px;
     height: auto;
     width: 100%;
     max-width: 640px;
@@ -173,3 +182,8 @@ a {
     position: relative;
     left: 60%;
 }
+
+input.inputButtons{
+    padding: 20px;
+}
+

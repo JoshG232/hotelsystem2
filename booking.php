@@ -41,9 +41,13 @@
             $sql = "SELECT * FROM room WHERE hotelID='$hotelID'";
             $result = mysqli_query($conn,$sql);
             $roomToBook = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+            $sql = "SELECT * FROM hotel WHERE hotelID='$hotelID'";
+            $result = mysqli_query($conn,$sql);
+            $hotelSelected = mysqli_fetch_all($result, MYSQLI_ASSOC);
             
         } 
-        if(isset($_SESSION["roomIDForBooking"])){
+        elseif(isset($_SESSION["roomIDForBooking"])){
             $roomID = $_SESSION["roomIDForBooking"];
             $sql = "SELECT * FROM room WHERE roomID='$roomID'";
             $result = mysqli_query($conn,$sql);
@@ -292,7 +296,7 @@
 ?>
 
 
-<form action="" method="post" class="selectForm">
+<!-- <form action="" method="post" class="selectForm">
     <label for="hotelList">Select Hotel:</label>
     <select id="hotelList" name="hotelList" >
         <option value="1">Nottingham</option>
@@ -302,7 +306,7 @@
 
     <input type="submit" name="submitHotelList" value="Submit">
 
-</form>
+</form> -->
 
 <p><?php echo $displayDates?></p>
 <div>
@@ -313,47 +317,66 @@
 <br>
 <?php $imageID = 6 ?>
 <?php $imageID2 = 3 ?>
+
+<?php foreach($hotelSelected as $hotel): ?>
+            
+            <div class="hotelInfoDiv">
+                <div class="wordsInHotel">
+                    <p class="text">Hotel: <?php echo $hotel["nameOfHotel"] ?> </p>
+                    <P class="text">Location: <?php echo $hotel["location"] ?> </p>
+                    <p class="text">Number of rooms: <?php echo $hotel["numberOfRooms"] ?> </p>
+                    <p class="text">Unique Feature: <?php echo $hotel["uniqueFeature"] ?> </p>
+                    <br>
+                    
+                    
+                </div>
+                
+                
+                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID]["image"])?>" alt=""class="hotelImage">
+                
+                
+                <br>
+            </div>
+        <?php endforeach ?>
 <?php foreach($roomToBook as $room): ?>
 
-    <div>
-        Cost: <?php echo $room["cost"] ?>
-        Number of Beds: <?php echo $room["beds"] ?>
-        Maximum number of adults:<?php echo $room["maxAdults"] ?>
-        Maximum number of children:<?php echo $room["maxChildren"] ?>
-        Bathroom details:<?php echo $room["bathroomDetails"] ?>
+    <div class="roomInfoDiv">
+        <div class="wordsInRoom">
+            <p class="text">Cost: <?php echo $room["cost"] ?></p>
+            <p class="text">Number of Beds: <?php echo $room["beds"] ?></p>
+            <p class="text">Maximum number of adults:<?php echo $room["maxAdults"] ?></p>
+            <p class="text">Maximum number of children:<?php echo $room["maxChildren"] ?></p>
+            <p class="text">Bathroom details:<?php echo $room["bathroomDetails"] ?></p>
+            <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
+                <label for="adults" class="text">Number of Adults: </label>
+                <input type="number" name="adults" min="0" max="2" class="text"> 
+                
+                <label for="children" class="text">Number of children</label>
+                <input type="number" name="children" min="0" max="2" class="text">
+                <br>
+                <label for="startDateBooked" class="text">Select a start date to book:</label>
+                <input type="date" name="startDateBooked" min="<?php echo date("Y-m-d"); ?>" class="text">
+                <br>
+                <label for="endDateBooked" class="text">Select a end date to book:</label>
+                <input type="date" name="endDateBooked" min="<?php echo date("Y-m-d"); ?>" class="text">
+                <br>
+                <input type="text" name="hotelID" value=<?php echo $room["hotelID"] ?> class="hiddenVariables">
+                <input type="text" name="roomID" value=<?php echo $room["roomID"] ?> class="hiddenVariables">
+                
+                <input type="submit" name="submitBooking" value="Submit Booking" id=<?php $roomID ?> class="inputButtons"></input>
+                <input type="submit" name="addToWishlist" value="Add to wishlist" id=<?php $roomID ?> class="text buttons"></input>
+            </form>
+        </div>
         
-        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt="" height="100px" width="200px">
-        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID2]["image"])?>" alt="" height="100px" width="200px">
+        
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID2]["image"])?>" alt="" class="roomImage">
+        <br>
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt=""  class="bathroomImage">
+        
         <?php $imageID = $imageID + 1 ?>
         <?php $imageID2 = $imageID2 + 1 ?>
         
-        <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
-            <label for="adults">Number of Adults</label>
-            <input type="number" name="adults" min="0" max="2" > 
-            
-
-            <label for="children">Number of children</label>
-            <input type="number" name="children" min="0" max="2">
-            
-
-            <label for="startDateBooked">Select a start date to book:</label>
-            <input type="date" name="startDateBooked" min="<?php echo date("Y-m-d"); ?>" >
-            
-
-            <label for="endDateBooked">Select a end date to book:</label>
-            <input type="date" name="endDateBooked" min="<?php echo date("Y-m-d"); ?>">
-            
-
-            
-            <input type="text" name="hotelID" value=<?php echo $room["hotelID"] ?> class="hiddenVariables">
-            <input type="text" name="roomID" value=<?php echo $room["roomID"] ?> class="hiddenVariables">
-            
-            <input type="submit" name="submitBooking" value="Submit Booking" id=<?php $roomID ?>></input>
-            <input type="submit" name="addToWishlist" value="Add to wishlist" id=<?php $roomID ?>></input>
-
-
-
-        </form>
+        
         
         <br>
 

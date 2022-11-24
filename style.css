@@ -194,7 +194,33 @@ div.errBox {
     display: none;
 }
 
+/* Customization for basket information */
+.basketInfoDiv{
+    border-style: solid;
+    border-width: 5px;
+    padding: 20px;
+    margin: 20px;
+    
+}
 
+.bathroomImage{
+    position: relative;
+    bottom: 50px;
+    height: auto;
+    width: 100%;
+    max-width: 640px;
+}
 
+.wordsInBasket {
+    position: relative;
+    
+    
+}
+
+.buttonsInBasket {
+    position: relative;
+    left: 40%;
+    bottom: 360px;
+}
 
 

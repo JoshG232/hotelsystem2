@@ -16,7 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Website</title>
-    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <?php include 'headerNav.php';?>
@@ -90,35 +90,40 @@
             }
 
         ?>
-        <div class="basketDisplay">
-            <p>Hotel: <?php echo $hotelName ?> </p>
-            <P>Date booked for: <?php echo $booking["dateBooked"] ?> </p>
-            <p>Booking ID: <?php echo $booking["bookingID"] ?> </p>
-            <p>Check in time:<?php echo $booking["checkIn"] ?> </p>
-            <p>Check out time:<?php echo $booking["checkOut"] ?> </p>
-            <p>Adults:<?php echo $booking["adults"] ?> </p>
-            <p>Children:<?php echo $booking["children"] ?> </p>
-
+        <div class="basketInfoDiv">
+            <div class="wordsInBasket">
+                <p class="text">Hotel: <?php echo $hotelName ?> </p>
+                <P class="text">Date booked for: <?php echo $booking["dateBooked"] ?> </p>
+                <p class="text">Booking ID: <?php echo $booking["bookingID"] ?> </p>
+                <p class="text">Check in time:<?php echo $booking["checkIn"] ?> </p>
+                <p class="text">Check out time:<?php echo $booking["checkOut"] ?> </p>
+                <p class="text">Adults:<?php echo $booking["adults"] ?> </p>
+                <p class="text">Children:<?php echo $booking["children"] ?> </p>
+            </div>
             
+            <div class="buttonsInBasket">
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <label for="adults" class="text">Number of Adults</label>
+                    <input type="number" name="adults" min="0" max="2" class="text"> 
 
-            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                <label for="adults">Number of Adults</label>
-                <input type="number" name="adults" min="0" max="2"> 
-
-                <label for="children">Number of children</label>
-                <input type="number" name="children" min="0" max="2">
+                    <label for="children" class="text">Number of children</label>
+                    <input type="number" name="children" min="0" max="2" class="text">
+                    <br>
+                    <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables text">
+                    <input type="submit" value="Update booking" name="updateBooking" class="text">
+                </form>
                 <br>
-                <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
-                <input type="submit" value="Update booking" name="updateBooking">
-            </form>
-            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
-                <input type="submit" value="Confirm booking" name="confirmBooking">
-            </form>
-            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
-                <input type="submit" value="Delete booking" name="deleteBooking">
-            </form>
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables text">
+                    <input type="submit" value="Confirm booking" name="confirmBooking" class="text"> 
+                </form>
+                <br>
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables text">
+                    <input type="submit" value="Delete booking" name="deleteBooking" class="text">
+                </form>
+            </div>
+
 
 
             

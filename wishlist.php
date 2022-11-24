@@ -70,32 +70,33 @@
             }
 
         ?>
-        <div class="basketDisplay">
-            <p>Hotel: <?php echo $hotelName ?> </p>
-            <P>Date booked for: <?php echo $wishlistItem["dateBooked"] ?> </p>
-            <p>Booking ID: <?php echo $wishlistItem["bookingID"] ?> </p>
-            <p>Check in time:<?php echo $wishlistItem["checkIn"] ?> </p>
-            <p>Check out time:<?php echo $wishlistItem["checkOut"] ?> </p>
-            <p>Adults:<?php echo $wishlistItem["adults"] ?> </p>
-            <p>Children:<?php echo $wishlistItem["children"] ?> </p>
-
+        <div class="basketInfoDiv">
+            <div class="wordsInBasket">
+                <p class="text">Hotel: <?php echo $hotelName ?> </p>
+                <P class="text">Date booked for: <?php echo $wishlistItem["dateBooked"] ?> </p>
+                <p class="text">Booking ID: <?php echo $wishlistItem["bookingID"] ?> </p>
+                <p class="text">Check in time:<?php echo $wishlistItem["checkIn"] ?> </p>
+                <p class="text">Check out time:<?php echo $wishlistItem["checkOut"] ?> </p>
+                <p class="text">Adults:<?php echo $wishlistItem["adults"] ?> </p>
+                <p class="text">Children:<?php echo $wishlistItem["children"] ?> </p>
+            </div>
             
-
-            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                
-                
-                
-                <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
-                
-            </form>
-            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
-                <input type="submit" value="Add to basket" name="addToBasket">
-            </form>
-            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
-                <input type="submit" value="Delete wishlist item" name="deleteWishlistItem">
-            </form>
+            
+            <div class="buttonsInBasket">
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
+                </form>
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
+                    <input type="submit" value="Add to basket" name="addToBasket" class="text">
+                </form>
+                <br>
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <input type="text" name="bookingID"  value=<?php echo $wishlistItem["bookingID"] ?> class="hiddenVariables">
+                    <input type="submit" value="Delete wishlist item" name="deleteWishlistItem" class="text">
+                </form>
+            </div>
+            
 
             
             

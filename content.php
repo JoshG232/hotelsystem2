@@ -103,7 +103,7 @@
                     
                     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                         <input type="text" name="hotelID" value=<?php echo $hotel["hotelID"] ?> class="hiddenVariables" >
-                        <input type="submit" name ="bookingHotel" value="Find rooms in this hotel" class="text">
+                        <input type="submit" name ="bookingHotel" value="Find rooms in this hotel"  >
                     </form>
                 </div>
                 

@@ -59,3 +59,12 @@ function selectedSlide(current){
 }
 
 
+function myFunction() {
+	
+	var x = document.getElementById("leftNavBar");
+	if (x.className === "leftNav") {
+		x.className += " responsive";
+	} else {
+		x.className = "leftNav";
+	}
+}

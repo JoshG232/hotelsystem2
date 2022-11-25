@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Website</title>
     <script src="./app.js"></script>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
@@ -17,7 +17,7 @@
 
     </form>
     <?php
-        $firstNameEmpty = $lastNameEmpty = $emailEmpty = $passwordEmpty = $genderEmpty = $ageEmpty = $nationalityEmpty = $incorrectLogin = "";
+        $firstNameEmpty = $lastNameEmpty = $emailEmpty = $passwordEmpty = $genderEmpty = $ageEmpty = $nationalityEmpty = $incorrectLogin = $emailLoginEmpty = $passwordLoginEmpty =  "";
         
         // $firstName = $lastName = $email = $gender = $age = $nationality = "";
         if (isset($_POST["submitRegister"])){
@@ -78,7 +78,7 @@
                     VALUES ('$firstName','$lastName','$email','$hashedPassword','$gender','$age','$nationality')";
                     if (mysqli_query($conn, $sql)){
                         
-                        // header("Location: index.php");
+                        header("Location: loginRegister.php");
                     }
                     else {
                         echo "Error" . mysqli_error($conn);
@@ -95,95 +95,118 @@
             
         }
         if (isset($_POST["submitLogin"])){
-            
-            $email = filter_input(INPUT_POST, "emailLogin",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $password = filter_input(INPUT_POST, "passwordLogin",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            
-            $sql = "SELECT firstName,password,customerID FROM customer WHERE email='$email'";
-            $result = mysqli_query($conn,$sql);
-            $loginInfo = mysqli_fetch_all($result, MYSQLI_ASSOC);
-            $actPassword = $loginInfo[0]["password"];
-            $firstName = $loginInfo[0]["firstName"];
-            $customerID = $loginInfo[0]["customerID"];
-            
-            // var_export($actPassword);
-            if (password_verify($password,$actPassword)){
-                $_SESSION["firstName"] = $firstName;
-                $_SESSION["customerID"] = $customerID;
-                
-                header("Location: index.php");
-            } else {
-                $incorrectLogin = "Incorrect login. Please try again.";
+            if (empty($_POST["emailLogin"])){
+                $emailLoginEmpty = "Email is required";
             }
+            else {
+                $email = filter_input(INPUT_POST, "emailLogin", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+
+            if (empty($_POST["passwordLogin"])){
+                $passwordLoginEmpty = "Password is required";
+            }
+            else {
+                $password = filter_input(INPUT_POST, "passwordLogin", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+            
+            
+            if(empty($emailLoginEmpty) && empty($passwordLoginEmpty)){
+                $sql = "SELECT firstName,password,customerID FROM customer WHERE email='$email'";
+                $result = mysqli_query($conn,$sql);
+                $loginInfo = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                $actPassword = $loginInfo[0]["password"];
+                $firstName = $loginInfo[0]["firstName"];
+                $customerID = $loginInfo[0]["customerID"];
+                
+                // var_export($actPassword);
+                if (password_verify($password,$actPassword)){
+                    $_SESSION["firstName"] = $firstName;
+                    $_SESSION["customerID"] = $customerID;
+                    
+                    header("Location: index.php");
+                } else {
+                    $incorrectLogin = "Incorrect login. Please try again.";
+                }
+            }
+            
         }
     ?>
     
     
-    <h1>Login/Register</h1>
+    
     <div class="registerForm">
-        <h2>Register</h2>
+        <h2 class="text">Register</h2>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST" class="registerForm">
             
-            <label for="firstName">First Name:</label>
-            <input type="text" name="firstName" id="firstName" value="<?php echo $_POST['firstName'] ?? ''; ?>">
+            <label for="firstName" class="text">First Name:</label>
+            <input type="text" name="firstName" id="firstName" value="<?php echo $_POST['firstName'] ?? ''; ?>" class="textInput">
             <div>
-                <?php echo $firstNameEmpty; ?>
+                <p class="formText"> <?php echo $firstNameEmpty; ?></p>
             </div>
 
-            <label for="lastName">Last Name:</label>
-            <input type="text" name="lastName" id="lastName" value="<?php echo $_POST['lastName'] ?? ''; ?>">
+            <label for="lastName" class="text">Last Name:</label>
+            <input type="text" name="lastName" id="lastName" value="<?php echo $_POST['lastName'] ?? ''; ?>" class="textInput">
             <div>
-                <?php echo $lastNameEmpty; ?>
+                <p class="formText"> <?php echo $lastNameEmpty; ?> </p>
+                
             </div>
 
-            <label for="email">Email:</label>
-            <input type="text" name="email" id="email" value="<?php echo $_POST['email'] ?? ''; ?>">
+            <label for="email" class="text">Email:</label>
+            <input type="text" name="email" id="email" value="<?php echo $_POST['email'] ?? ''; ?>" class="textInput">
             <div>
-                <?php echo $emailEmpty; ?>
+                <p class="formText"><?php echo $emailEmpty; ?></p>
+                
             </div>
 
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" value="<?php echo $_POST['password'] ?? ''; ?>">
+            <label for="password" class="text">Password:</label>
+            <input type="password" name="password" id="password" value="<?php echo $_POST['password'] ?? ''; ?>" class="textInput">
             <div>
-                <?php echo $passwordEmpty; ?>
+                <p class="formText"><?php echo $passwordEmpty; ?></p>
+                
             </div>
 
-            <label for="gender">Gender:</label>
-            <input type="text" name="gender" id="gender" value="<?php echo $_POST['gender'] ?? ''; ?>">
+            <label for="gender" class="text">Gender:</label>
+            <input type="text" name="gender" id="gender" value="<?php echo $_POST['gender'] ?? ''; ?>" class="textInput">
             <div>
-                <?php echo $genderEmpty; ?>
+                <p class="formText"><?php echo $genderEmpty; ?></p>
+                
             </div>
 
-            <label for="age">Age:</label>
-            <input type="number" name="age" id="age" value="<?php echo $_POST['age'] ?? ''; ?>">
+            <label for="age" class="text">Age:</label>
+            <input type="number" name="age" id="age" value="<?php echo $_POST['age'] ?? ''; ?>" class="textInput">
             <div>
-                <?php echo $ageEmpty; ?>
+                <p class="formText"><?php echo $ageEmpty; ?></p>
+                
             </div>
 
-            <label for="nationality">Nationality:</label>
-            <input type="text" name="nationality" id="nationality" value="<?php echo $_POST['nationality'] ?? ''; ?>">
+            <label for="nationality" class="text">Nationality:</label>
+            <input type="text" name="nationality" id="nationality" value="<?php echo $_POST['nationality'] ?? ''; ?>" class="textInput">
             <div>
-                <?php echo $nationalityEmpty; ?>
+                <p class="formText"> <?php echo $nationalityEmpty; ?></p>
             </div>
 
             <br>
-            <input type="submit" name="submitRegister" value="Submit">
+            <input type="submit" name="submitRegister" value="Submit" class="textInput">
 
         </form>
     </div>
         
     <div class="loginForm">
-        <h2>Login</h2>
-        <div> <?php echo $incorrectLogin ?></div>
+        <h2 class="text">Login</h2>
+        <div> 
+            
+            <p class="formText"> <?php echo $incorrectLogin ?></p>
+        </div>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" class="loginForm">
-            <label for="emailLogin">Email:</label>
-            <input type="email" name="emailLogin" id="email" value="<?php echo $_POST['emailLogin'] ?? ''; ?>">
+            <label for="emailLogin" class="text">Email:</label>
+            <input type="email" name="emailLogin" id="email" value="<?php echo $_POST['emailLogin'] ?? ''; ?>" class="textInput">
+            <div> <p class="formText"><?php echo $emailLoginEmpty; ?></p></div>
 
-            <label for="passwordLogin">Password:</label>
-            <input type="password" name="passwordLogin" id="password">
-
+            <label for="passwordLogin" class="text">Password:</label>
+            <input type="password" name="passwordLogin" id="password" class="textInput">
+            <div> <p class="formText"><?php echo $passwordLoginEmpty; ?></p></div>
             <br>
-            <input type="submit" name="submitLogin" value="Submit">
+            <input type="submit" name="submitLogin" value="Submit" class="textInput">
 
         </form>
     </div>

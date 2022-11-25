@@ -80,40 +80,38 @@
         
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             
-            <label for="firstName">First Name:</label>
+            <label for="firstName" class="text" >First Name:</label>
             <input type="text" name="firstName" value=<?php echo $customerDetails[0]["firstName"]?> >
 
-            <label for="lastName">Last Name:</label>
+            <label for="lastName" class="text">Last Name:</label>
             <input type="text" name="lastName" value=<?php echo $customerDetails[0]["lastName"]?> >
 
-            <label for="email">Email:</label>
+            <label for="email" class="text">Email:</label>
             <input type="email" name="email" value=<?php echo $customerDetails[0]["email"]?> >
 
-            <label for="password">Password:</label>
+            <label for="password" class="text">Password:</label>
             <input type="text" name="password" placeholder="Enter new password" >
 
-            <label for="gender">Gender:</label>
+            <label for="gender" class="text">Gender:</label>
             <input type="text" name="gender" value=<?php echo $customerDetails[0]["gender"]?> >
 
-            <label for="age">Age:</label>
+            <label for="age" class="text">Age:</label>
             <input type="number" name="age" value=<?php echo $customerDetails[0]["age"]?> >
 
-            <label for="nationality">Nationality:</label>
+            <label for="nationality" class="text">Nationality:</label>
             <input type="text" name="nationality" value=<?php echo $customerDetails[0]["nationality"]?> >
-
-
-
-
-
-
-
+            <br>
+            <br>
             
             <input type="submit" value="Update information" name="updateInfo">
         </form>
         
         <br>
     </div>
-    <h2>Current bookings</h2>
+    <div class="titleDiv">
+        <h2 class="titleText">Current bookings</h2>
+    </div>
+    
     
     <?php foreach($bookings as $booking): ?>
     
@@ -129,18 +127,22 @@
         }
 
     ?>
-    <div class="accountDisplay">
-        <p>Hotel: <?php echo $hotelName ?> </p>
-        <P>Date booked for: <?php echo $booking["dateBooked"] ?> </p>
-        <p>Booking ID: <?php echo $booking["bookingID"] ?> </p>
-        <p>Check in time:<?php echo $booking["checkIn"] ?> </p>
-        <p>Check out time:<?php echo $booking["checkOut"] ?> </p>
-        <p>Adults:<?php echo $booking["adults"] ?> </p>
-        <p>Children:<?php echo $booking["children"] ?> </p>
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
-            <input type="submit" value="Delete booking" name="deleteBooking">
-        </form>
+    <div class="accountInfoDiv">
+        <div class="wordsInAccount">
+            <p class="text">Hotel: <?php echo $hotelName ?> </p>
+            <P class="text">Date booked for: <?php echo $booking["dateBooked"] ?> </p>
+            <p class="text">Booking ID: <?php echo $booking["bookingID"] ?> </p>
+            <p class="text">Check in time:<?php echo $booking["checkIn"] ?> </p>
+            <p class="text">Check out time:<?php echo $booking["checkOut"] ?> </p>
+            <p class="text">Adults:<?php echo $booking["adults"] ?> </p>
+            <p class="text">Children:<?php echo $booking["children"] ?> </p>
+            <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
+                <input type="submit" value="Delete booking" name="deleteBooking" class="text">
+            </form>
+        </div>
+        
+        
         
         <br>
     </div>
@@ -149,8 +151,10 @@
 
 
     <?php endforeach ?>
-
-    <h2>Previous Bookings</h2>
+    <div class="titleDiv">
+        <h2 class="titleText">Previous Bookings</h2>
+    </div>
+ 
     
     <?php foreach($previousBookings as $booking): ?>
     
@@ -169,14 +173,17 @@
             }
 
         ?>
-    <div class="accountDisplay" >
-        <p>Hotel: <?php echo $hotelName ?> </p>
-        <P>Date booked for: <?php echo $booking["dateBooked"] ?> </p>
-        <p>Booking ID: <?php echo $booking["bookingID"] ?> </p>
-        <p>Check in time:<?php echo $booking["checkIn"] ?> </p>
-        <p>Check out time:<?php echo $booking["checkOut"] ?> </p>
-        <p>Adults:<?php echo $booking["adults"] ?> </p>
-        <p>Children:<?php echo $booking["children"] ?> </p>
+    <div class="accountInfoDiv" >
+        <div class="wordsInAccount">
+            <p class="text">Hotel: <?php echo $hotelName ?> </p>
+            <P class="text">Date booked for: <?php echo $booking["dateBooked"] ?> </p>
+            <p class="text">Booking ID: <?php echo $booking["bookingID"] ?> </p>
+            <p class="text">Check in time:<?php echo $booking["checkIn"] ?> </p>
+            <p class="text">Check out time:<?php echo $booking["checkOut"] ?> </p>
+            <p class="text">Adults:<?php echo $booking["adults"] ?> </p>
+            <p class="text">Children:<?php echo $booking["children"] ?> </p>
+        </div>
+        
         <!-- <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             <input type="text" name="bookingID"  value=<?php echo $booking["bookingID"] ?> class="hiddenVariables">
             <input type="submit" value="Delete booking" name="deleteBooking">

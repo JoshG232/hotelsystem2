@@ -6,6 +6,7 @@
 ?>
 <head>
     <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
 </head>
 
 <style>
@@ -54,10 +55,10 @@
 
             
         </ul> -->
-        <div class="leftNav">
+        <div class="leftNav" id="leftNavBar">
             <a href="index.php" class="navListItem">Home</a>
             <a href="report.php" class="navListItem">Report</a>
-            <a href="content.php" class="navListItem">Content</a>
+            <a href="content.php" class="navListItem">Content/Booking</a>
             <div class="rightNav">
                 <a href="" class="navListItem2"><?php echo "Welcome ". $firstName; ?> </a>
 
@@ -68,7 +69,11 @@
                 <a href="wishlist.php" class="navListItem2">Wishlist</a>
                 <a href="logout.php" class="navListItem2">Logout</a>
                 <a href="loginRegister.php" class="navListItem3">Login/Register</a>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
+            
         </div>
     <!-- </div> -->
     

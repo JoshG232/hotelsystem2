@@ -1,6 +1,7 @@
 body{
     margin: 0 ;
     overflow-x: hidden;
+    background-color: #f2f2f2 ;
 }
 
 .rightNav {
@@ -37,10 +38,13 @@ a {
     padding-left: 10px;
     position: relative;
     bottom: 15px;
-    font-family: sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .imgsForSlide{
+    margin-top: 10px;
     text-align: center;
+    height: 2000px;
+    width: auto;
 }
 .slideImgs{
     height: 30%;
@@ -82,7 +86,6 @@ a {
 
 .thumbnailImages {
     text-align: center;
-    
     width: 20%;
     display: inline-block;
 }
@@ -135,6 +138,28 @@ a {
     left: 60%;
 }
 
+/* Hotel card for booking page */
+.hotelInfoDivBooking{
+    border-style: solid;
+    border-width: 5px;
+    padding: 20px;
+    margin: 20px;
+    
+}
+
+.hotelImageBooking{
+    position: relative;
+    left: 10%;
+    bottom: 100px;
+    height: auto;
+    width: 100%;
+    max-width: 640px;
+}
+
+.wordsInHotelBooking {
+    position: relative;
+    left: 60%;
+}
 
 /* Bathrooms */
 .bathroomInfoDiv{
@@ -168,7 +193,7 @@ a {
 
 .roomImage{
     position: relative;
-    bottom: 500px;
+    bottom: 250px;
     height: auto;
     width: 100%;
     max-width: 640px;
@@ -179,6 +204,53 @@ a {
     position: relative;
     left: 60%;
 }
+
+/* Customization for basket information */
+.basketInfoDiv{
+    border-style: solid;
+    border-width: 5px;
+    padding: 20px;
+    margin: 20px;
+    
+}
+
+.bathroomImage{
+    position: relative;
+    bottom: 50px;
+    height: auto;
+    width: 100%;
+    max-width: 640px;
+}
+
+.wordsInBasket {
+    position: relative;
+    
+    
+}
+
+.buttonsInBasket {
+    position: relative;
+    left: 40%;
+    bottom: 300px;
+}
+
+.bathroomImageBooking2{
+    position: relative;
+    left: 700px;
+    bottom: 550px;
+    height: auto;
+    width: 70%;
+    max-width: 640px;
+}
+.roomImageBooking2{
+    position: relative;
+    left: 700px;
+    bottom: 600px;
+    height: auto;
+    width:90%;
+    max-width: 640px;
+}
+
 
 
 @media screen and (max-width: 500px){
@@ -216,11 +288,9 @@ a {
     .wordsInHotel {
         position: relative;
         left: 10px;
-        top: 100px;
+        top: 210px;
         
     }
-
-    
     .bathroomInfoDiv{
         border-style: solid;
         border-width: 5px;
@@ -229,7 +299,7 @@ a {
     }
     .bathroomImage{
         position: relative;
-        bottom: 250px;
+        bottom: 50px;
         height: auto;
         width: 70%;
         max-width: 640px;
@@ -239,7 +309,7 @@ a {
      {
         position: relative;
         left: 1px;
-        top: 150px;
+        top: 190px;
     }
     /* Rooms */
     .roomInfoDiv{
@@ -261,12 +331,84 @@ a {
     .wordsInroom {
         position: relative;
         left: 1px;
-        top: 150px;
+        top: 210px;
+    }
+    
+
+    .hotelInfoDivBooking{
+        border-style: solid;
+        border-width: 5px;
+        padding: 20px;
+        margin: 20px;
+        
+    }
+    
+    .hotelImageBooking{
+        position: relative;
+        left: 10%;
+        bottom: 200px;
+        height: auto;
+        width: 70%;
+        max-width: 640px;
+    }
+    
+    .wordsInHotelBooking {
+        position: relative;
+        left: 10px;
+        top: 130px;
+        
+    }
+
+    /* Bathroom and room image in booking section */
+
+    .bathroomImageBooking2{
+        position: relative;
+        height: auto;
+        width: 70%;
+        max-width: 640px;
+    }
+    .roomImageBooking2{
+        position: relative;
+        
+        height: auto;
+        width:90%;
+        max-width: 640px;
+    }
+    .wordsInroomBooking {
+        position: relative;
+        left: 1px;
+        top: 200px;
+    }
+
+    .basketInfoDiv{
+        border-style: solid;
+        border-width: 5px;
+        padding: 20px;
+        margin: 20px;
+        
+    }
+    
+    .wordsInBasket {
+        position: relative;
+        
+        
+    }
+    
+    .buttonsInBasket {
+        position: relative;
+        left: 0;
+        bottom: 0;
     }
  
     
 }
-
+.icon{
+    position: relative;
+    right: 5px;
+    top: 5px;
+    margin: 0;
+    padding: 0;
+}
 
 
 
@@ -286,34 +428,6 @@ div.errBox {
     display: none;
 }
 
-/* Customization for basket information */
-.basketInfoDiv{
-    border-style: solid;
-    border-width: 5px;
-    padding: 20px;
-    margin: 20px;
-    
-}
-
-.bathroomImage{
-    position: relative;
-    bottom: 50px;
-    height: auto;
-    width: 100%;
-    max-width: 640px;
-}
-
-.wordsInBasket {
-    position: relative;
-    
-    
-}
-
-.buttonsInBasket {
-    position: relative;
-    left: 40%;
-    bottom: 300px;
-}
 
 .registerForm {
     text-align: center;
@@ -359,9 +473,7 @@ div.errBox {
     
     
 }
-.icon{
-    background-color: white;
-}
+
 @media screen and (min-width: 1000px){
     .icon {
         display: none;

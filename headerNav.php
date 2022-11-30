@@ -7,6 +7,10 @@
 <head>
     <link rel="stylesheet" href="style.css">
     <script src="app.js"></script>
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font
+-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <style>
@@ -69,9 +73,10 @@
                 <a href="wishlist.php" class="navListItem2">Wishlist</a>
                 <a href="logout.php" class="navListItem2">Logout</a>
                 <a href="loginRegister.php" class="navListItem3">Login/Register</a>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                    <i class="fa fa-bars"></i>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()" >
+                    <img src="bars.jpg" alt="" height="10px" width="10px" class="bars">
                 </a>
+                
             </div>
             
         </div>

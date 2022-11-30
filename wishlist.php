@@ -35,7 +35,7 @@
             echo $bookingID;
             $sql = "DELETE FROM `booking` WHERE bookingID='$bookingID'";
             if (mysqli_query($conn, $sql)){
-                echo "All confirmed";
+                header("Location: wishlist.php");
             }
               else {
                 echo "Error" . mysqli_error($conn);

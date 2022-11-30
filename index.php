@@ -8,6 +8,7 @@
     <title>Hotel Website</title>
     <script src="./app.js"></script>
     <link rel="stylesheet" href="style.css?<?php echo time(); ?>">
+    
 	<style>
 	div.hiddenImages{
         display:none;
@@ -33,8 +34,8 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
     <div class = "imgsForSlide hiddenImages">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="" class="slideImgs fade" id="1" >
-      <p>Caption 1</p>
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[9]['image'])?>" alt="Room 1" class="slideImgs fade" id="1" >
+      <p class="text">Room 1</p>
       <a class="first" onclick="selectedSlide(0)">First</a>
       <a class="previous" onclick="slideShow(-1)"><-</a>
       <a class="random" onclick="randomSlide()">Random</a>
@@ -45,7 +46,7 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div class = "imgsForSlide hiddenImages">
       <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[10]['image'])?>" alt="" class="slideImgs fade"id="1" >
       
-      <p>Caption 2</p>
+      <p class="text">Pool in hotel</p>
       <a class="first" onclick="selectedSlide(0)">First</a>
       <a class="previous" onclick="slideShow(-1)"><-</a>
       <a class="random" onclick="randomSlide()">Random</a>
@@ -54,7 +55,7 @@ $images = mysqli_fetch_all($result, MYSQLI_ASSOC);
     </div>
     <div class = "imgsForSlide hiddenImages">
       <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[11]['image'])?>" alt="" class="slideImgs fade" id="1" >
-      <p>Caption 3</p>
+      <p class="text">Outside of hotel</p>
       <a class="first" onclick="selectedSlide(0)">First</a>
       <a class="previous" onclick="slideShow(-1)"><-</a>
       <a class="random" onclick="randomSlide()">Random</a>

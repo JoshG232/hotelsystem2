@@ -330,8 +330,8 @@
 
 <?php foreach($hotelSelected as $hotel): ?>
             
-            <div class="hotelInfoDiv">
-                <div class="wordsInHotel">
+            <div class="hotelInfoDivBooking">
+                <div class="wordsInHotelBooking">
                     <p class="text">Hotel: <?php echo $hotel["nameOfHotel"] ?> </p>
                     <P class="text">Location: <?php echo $hotel["location"] ?> </p>
                     <p class="text">Number of rooms: <?php echo $hotel["numberOfRooms"] ?> </p>
@@ -342,7 +342,7 @@
                 </div>
                 
                 
-                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID]["image"])?>" alt=""class="hotelImage">
+                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID]["image"])?>" alt=""class="hotelImageBooking">
                 
                 
                 <br>
@@ -351,7 +351,7 @@
 <?php foreach($roomToBook as $room): ?>
 
     <div class="roomInfoDiv">
-        <div class="wordsInRoom">
+        <div class="wordsInRoomBooking">
             <p class="text">Cost: <?php echo $room["cost"] ?></p>
             <p class="text">Number of Beds: <?php echo $room["beds"] ?></p>
             <p class="text">Maximum number of adults:<?php echo $room["maxAdults"] ?></p>
@@ -380,9 +380,9 @@
         </div>
         
         
-        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID2]["image"])?>" alt="" class="roomImage">
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID2]["image"])?>" alt="" class="roomImageBooking2">
         <br>
-        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt=""  class="bathroomImage">
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$imageID]["image"])?>" alt=""  class="bathroomImageBooking2">
         
         <?php $imageID = $imageID + 1 ?>
         <?php $imageID2 = $imageID2 + 1 ?>

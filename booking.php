@@ -7,7 +7,6 @@
     input.hiddenVariables{display:none;}
     form.input{
         top: 10%;
-    
     }
     
 </style>
@@ -160,7 +159,9 @@
                     VALUES ('$hotelID','$roomID','$customerID','$adults','$children','$dateBooked','$booked','$checkIn','$checkOut')";
                     if (mysqli_query($conn, $sql)){
                         
-                        echo "All Booked";
+                        
+                        $complete = "Order has been add to the basket";
+                        $completeHidden = "block";
                     }
                     else {
                         echo "Error" . mysqli_error($conn);
@@ -170,7 +171,7 @@
                 }
             }
         }else{
-            $errBoxHidden = "block";
+            echo $errBoxHidden = "block";
         }
     }
     if (isset($_POST["addToWishlist"])){
@@ -268,7 +269,10 @@
                     VALUES ('$hotelID','$roomID','$customerID','$adults','$children','$dateBooked','$booked','$checkIn','$checkOut','$wishlist')";
                     if (mysqli_query($conn, $sql)){
                         
-                        echo "Added to wishlist";
+                        
+                        $complete = "Order has been added to the wishlist";
+                        $completeHidden = "block";
+                        
                     }
                     else {
                         echo "Error" . mysqli_error($conn);
@@ -317,15 +321,15 @@
 
 
 <div class="errBox">
-    <p><?php echo $displayDates?></p>
-    
+    <p class="text"><?php echo $displayDates?></p>
     <p>
         <?php 
             echo nl2br($adultsEmpty . "\n" . $childrenEmpty . "\n" . $startDateBookedEmpty . "\n" . $endDateBookedEmpty)
         ?>
-
-
     </p>
+</div>
+<div class="completeDiv">
+    <p class="text"><?php echo $complete?></p>
 </div>
 
 <?php foreach($hotelSelected as $hotel): ?>
@@ -342,7 +346,7 @@
                 </div>
                 
                 
-                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID]["image"])?>" alt=""class="hotelImageBooking">
+                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($images[$hotelID-1]["image"])?>" alt=""class="hotelImageBooking">
                 
                 
                 <br>
@@ -393,11 +397,7 @@
 
     </div>
 
-<style>
-    div.errBox {
-        display: <?php echo "$errBoxHidden" ?>
-    }
-</style>
+
 <?php endforeach ?>
 
 
@@ -405,3 +405,12 @@
 <footer>
     <?php include 'footer.html' ?>
 </footer>
+
+<style>
+    div.errBox {
+        display: <?php echo "$errBoxHidden" ?>
+    }
+    div.completeDiv {
+        display: <?php echo "$completeHidden" ?>
+    }
+</style>

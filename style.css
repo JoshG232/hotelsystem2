@@ -43,12 +43,13 @@ a {
 .imgsForSlide{
     margin-top: 10px;
     text-align: center;
-    height: 2000px;
+    
     width: auto;
 }
 .slideImgs{
-    height: 30%;
-    width: 70%;
+    height: 700px;
+    width: auto;
+    max-width: 1200px;
 }
 .next {
     cursor: pointer;
@@ -91,7 +92,7 @@ a {
 }
 
 #footer{
-    position: absolute;
+    padding-top: 40px;
     display: block;
     bottom: 0;
     width: 100%;
@@ -106,8 +107,18 @@ a {
     display: block;
     font-size: 20px;
     font-family: sans-serif;
-    
 }
+
+.htext{
+    display: block;
+    font-family: sans-serif;
+}
+
+.report {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 
 .accountText{
     display: inline;
@@ -423,6 +434,15 @@ div.errBox {
     border-width: 5px;
     border-color: red;
     color: red;
+    padding: 10px;
+    margin: 20px;
+    display: none;
+}
+
+div.completeDiv {
+    border-style: solid;
+    border-width: 5px;
+    
     padding: 10px;
     margin: 20px;
     display: none;

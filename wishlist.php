@@ -23,6 +23,7 @@
     
 </head>
 <body>
+    <?php include 'header.html';?>
     <?php include 'headerNav.php';?>
     <?php 
         $customerID = $_SESSION["customerID"];

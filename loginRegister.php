@@ -1,6 +1,9 @@
 <?php include "./config/database.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    
+</style>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +12,7 @@
     <script src="./app.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     
     <?php include 'headerNav.php';?>
@@ -17,7 +21,7 @@
 
     </form>
     <?php
-        $firstNameEmpty = $lastNameEmpty = $emailEmpty = $passwordEmpty = $genderEmpty = $ageEmpty = $nationalityEmpty = $incorrectLogin = $emailLoginEmpty = $passwordLoginEmpty =  "";
+        $firstNameEmpty = $lastNameEmpty = $emailEmpty = $passwordEmpty = $genderEmpty = $ageEmpty = $nationalityEmpty = $incorrectLogin = $emailLoginEmpty = $passwordLoginEmpty = $registerMessage =   "";
         
         // $firstName = $lastName = $email = $gender = $age = $nationality = "";
         if (isset($_POST["submitRegister"])){
@@ -84,7 +88,7 @@
                         echo "Error" . mysqli_error($conn);
                     }
                 } else {
-                    echo "Email already in use. Please login or use another email.";
+                    $registerMessage = "Email already in use. Please login or use another email.";
                 }
             } 
             else {
@@ -114,6 +118,7 @@
                 $sql = "SELECT firstName,password,customerID FROM customer WHERE email='$email'";
                 $result = mysqli_query($conn,$sql);
                 $loginInfo = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                
                 $actPassword = $loginInfo[0]["password"];
                 $firstName = $loginInfo[0]["firstName"];
                 $customerID = $loginInfo[0]["customerID"];
@@ -126,13 +131,16 @@
                     header("Location: index.php");
                 } else {
                     $incorrectLogin = "Incorrect login. Please try again.";
+                
                 }
             }
             
         }
     ?>
     
-    
+    <div class="emailInUse">
+        <p class="text" style="color:red"><?php echo "$registerMessage" ?></p>
+    </div>
     
     <div class="registerForm">
         <h2 class="text">Register</h2>
@@ -211,7 +219,6 @@
         </form>
     </div>
 
-    
     <footer>
         <?php include 'footer.html' ?>
     </footer>
